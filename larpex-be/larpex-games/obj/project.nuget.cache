@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9O6hQ/4+nZlDJyZnO6sbzVyKcQTle4y+Z3L3I/607oiIqb+P190ousWZdVAQ/tj4G0co6DQNjpOGgvxBh0dmFw==",
+  "success": true,
+  "projectFilePath": "/home/jakub/Documents/PolitechnikaWarszawska/ProjOpr/larpex-be/larpex-be/larpex-games/larpex-games.csproj",
+  "expectedPackageFiles": [
+    "/home/jakub/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.13/microsoft.aspnetcore.app.ref.7.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}

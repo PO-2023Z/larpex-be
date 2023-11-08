@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/larpex-events.props" />
+</Project>

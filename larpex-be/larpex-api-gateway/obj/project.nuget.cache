@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "mcCLrKZt3rXASyeq+hcOZMrstMRSiJPI+DBAIJoZ/3wo0uh0DbmzI2RKcjPiLtNKG4dM1ZGXTrCt8WGhehu7sQ==",
+  "success": true,
+  "projectFilePath": "/home/jakub/Documents/PolitechnikaWarszawska/ProjOpr/larpex-be/larpex-be/larpex-api-gateway/larpex-api-gateway.csproj",
+  "expectedPackageFiles": [
+    "/home/jakub/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.13/microsoft.aspnetcore.app.ref.7.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}

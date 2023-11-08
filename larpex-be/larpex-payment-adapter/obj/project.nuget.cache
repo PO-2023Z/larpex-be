@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "09mEm+Ym6lAdYJMtOc4EWlGxY21D6L+F2FbTpa3yVxuiZCQlRkRF4G0eN7ZmZwZOC0U62KZAVD6uU8gIKOdhuA==",
+  "success": true,
+  "projectFilePath": "/home/jakub/Documents/PolitechnikaWarszawska/ProjOpr/larpex-be/larpex-be/larpex-payment-adapter/larpex-payment-adapter.csproj",
+  "expectedPackageFiles": [
+    "/home/jakub/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.13/microsoft.aspnetcore.app.ref.7.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "uZjDhlCAkbGTI9UQU/Mow1LxmbxbYbLskphC6bJlIPdPDeBd+21mGU4wzcM5A/G9XPEGhTXJrwv5kxFHNj+iAA==",
+  "success": true,
+  "projectFilePath": "/home/jakub/Documents/PolitechnikaWarszawska/ProjOpr/larpex-be/larpex-be/larpex-locations/larpex-locations.csproj",
+  "expectedPackageFiles": [
+    "/home/jakub/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.13/microsoft.aspnetcore.app.ref.7.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}
