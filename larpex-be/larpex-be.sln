@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-events", "larpex-events\larpex-events.csproj", "{FE3E2078-1C7F-4F59-A27E-D03729EE187E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-api-gateway", "larpex-api-gateway\larpex-api-gateway.csproj", "{884CFAB0-41B8-4804-83F3-3356D3E93920}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-auth", "larpex-auth\larpex-auth.csproj", "{3F66B038-01C8-4C10-9DEB-A3D9668AA0F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-locations", "larpex-locations\larpex-locations.csproj", "{41E9FD35-3171-4B4C-8AAB-AA8222D7F7C5}"
@@ -13,6 +11,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-play", "larpex-play\larpex-play.csproj", "{3FBA6A9F-E95F-43A7-A72F-395C54C2501B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-payment-adapter", "larpex-payment-adapter\larpex-payment-adapter.csproj", "{4F8A50AA-A301-4036-96B7-08C35761F3AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-api-gateway", "larpex-api-gateway\larpex-api-gateway.csproj", "{81D5C8E0-C3A5-4EA4-8354-E7326061EA71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,10 +24,6 @@ Global
 		{FE3E2078-1C7F-4F59-A27E-D03729EE187E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE3E2078-1C7F-4F59-A27E-D03729EE187E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE3E2078-1C7F-4F59-A27E-D03729EE187E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{884CFAB0-41B8-4804-83F3-3356D3E93920}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{884CFAB0-41B8-4804-83F3-3356D3E93920}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{884CFAB0-41B8-4804-83F3-3356D3E93920}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{884CFAB0-41B8-4804-83F3-3356D3E93920}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3F66B038-01C8-4C10-9DEB-A3D9668AA0F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3F66B038-01C8-4C10-9DEB-A3D9668AA0F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F66B038-01C8-4C10-9DEB-A3D9668AA0F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,5 +44,9 @@ Global
 		{4F8A50AA-A301-4036-96B7-08C35761F3AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F8A50AA-A301-4036-96B7-08C35761F3AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F8A50AA-A301-4036-96B7-08C35761F3AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81D5C8E0-C3A5-4EA4-8354-E7326061EA71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81D5C8E0-C3A5-4EA4-8354-E7326061EA71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81D5C8E0-C3A5-4EA4-8354-E7326061EA71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81D5C8E0-C3A5-4EA4-8354-E7326061EA71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
