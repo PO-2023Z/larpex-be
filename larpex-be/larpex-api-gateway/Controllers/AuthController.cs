@@ -9,7 +9,6 @@ public class AuthController : ControllerBase
 {
     public AuthController(IConfiguration configuration)
     {
-
         string? key = configuration.GetValue<string>("JWT:Key");
         int expirationTime = configuration.GetValue<int>("JWT:ExpirationTimeInMinutes");
         if (String.IsNullOrWhiteSpace(key))
