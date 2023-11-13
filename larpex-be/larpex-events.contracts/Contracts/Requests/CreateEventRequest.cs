@@ -1,6 +1,6 @@
-﻿using larpex_events.Contracts.DataTransferObjects;
+﻿using larpex_events.contracts.Contracts.DataTransferObjects;
 
-namespace larpex_events.Contracts.Requests;
+namespace larpex_events.contracts.Contracts.Requests;
 
 public class CreateEventRequest
 {

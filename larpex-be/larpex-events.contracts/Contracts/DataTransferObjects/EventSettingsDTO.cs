@@ -1,4 +1,4 @@
-﻿namespace larpex_events.Contracts.DataTransferObjects;
+﻿namespace larpex_events.contracts.Contracts.DataTransferObjects;
 
 public class EventSettingsDTO
 {
