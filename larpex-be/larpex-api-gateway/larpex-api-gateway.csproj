@@ -14,7 +14,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\larpex-events.contracts\larpex-events.contracts.csproj" />
+      <ProjectReference Include="..\larpex-events\larpex-events.csproj" />
       <ProjectReference Include="..\larpex-auth\larpex-auth.csproj" />
+        
     </ItemGroup>
 
 </Project>
