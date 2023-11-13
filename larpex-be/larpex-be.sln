@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-play", "larpex-play\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-payment-adapter", "larpex-payment-adapter\larpex-payment-adapter.csproj", "{4F8A50AA-A301-4036-96B7-08C35761F3AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-api-gateway", "larpex-api-gateway\larpex-api-gateway.csproj", "{81D5C8E0-C3A5-4EA4-8354-E7326061EA71}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-events.contracts", "larpex-events.contracts\larpex-events.contracts.csproj", "{818987E7-02BF-4DAA-91BB-E622FEAFCE21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
