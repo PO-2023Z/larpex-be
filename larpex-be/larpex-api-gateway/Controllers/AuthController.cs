@@ -7,7 +7,21 @@ namespace larpex_api_gateway.Controllers;
 [Route("[controller]")]
 public class AuthController : ControllerBase
 {
+    public AuthController(IConfiguration configuration)
+    {
 
+        string? key = configuration.GetValue<string>("JWT:Key");
+        int expirationTime = configuration.GetValue<int>("JWT:ExpirationTimeInMinutes");
+        if (String.IsNullOrWhiteSpace(key))
+        {
+            throw new Exception("Exception while creating auth controller!");
+        }
+
+        TokenGenerator.KeyString = key;
+        TokenGenerator.ExpirationTime = expirationTime;
+    }
+    
+    
     [HttpGet]
     public IActionResult GenerateToken(string email)
     {

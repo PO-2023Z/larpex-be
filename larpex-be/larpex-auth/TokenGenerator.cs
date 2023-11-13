@@ -9,12 +9,17 @@ namespace larpex_auth;
 
 public static class TokenGenerator
 {
-    public static int ExpirationTime = 60; //TODO: Read expiration time from json file
-    public static string KeyString = "fsaifhi234uhf2qf23r4234fdsfd232f23f2edsfae3"; //TODO: Read key from json file
+    public static int ExpirationTime;
+    public static string? KeyString;
     public static readonly string IssuerName = "LarpexApp";
     
     public static string GenerateToken(string email)
     {
+        if (String.IsNullOrWhiteSpace(KeyString))
+        {
+            throw new Exception("Key is invalid");
+        }
+        
         var key = Encoding.UTF8.GetBytes(KeyString);
         var skey = new SymmetricSecurityKey(key);
         var signedCredential = new SigningCredentials(skey, SecurityAlgorithms.HmacSha256Signature);
