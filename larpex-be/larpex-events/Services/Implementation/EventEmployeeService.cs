@@ -1,6 +1,5 @@
-﻿using larpex_events.Contracts.Responses;
+﻿using larpex_events.contracts.Contracts.Responses;
 using larpex_events.Domain.Enums;
-using larpex_events.Repository;
 using larpex_events.Services.Interface;
 
 namespace larpex_events.Services.Implementation;

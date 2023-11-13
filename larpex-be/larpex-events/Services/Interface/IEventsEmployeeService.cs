@@ -1,4 +1,4 @@
-﻿using larpex_events.Contracts.Responses;
+﻿using larpex_events.contracts.Contracts.Responses;
 using larpex_events.Domain.Enums;
 
 namespace larpex_events.Services.Interface;

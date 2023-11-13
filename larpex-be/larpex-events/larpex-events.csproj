@@ -13,4 +13,12 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Persistance\DataTransferObjects\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\larpex-events.contracts\larpex-events.contracts.csproj" />
+    </ItemGroup>
+
 </Project>

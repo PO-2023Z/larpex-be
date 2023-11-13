@@ -1,6 +1,6 @@
 ﻿using larpex_events.Domain;
 
-namespace larpex_events.Repository;
+namespace larpex_events.Services.Interface;
 
 public interface IEventsRepository
 {

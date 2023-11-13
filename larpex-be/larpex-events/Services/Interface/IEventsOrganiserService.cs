@@ -1,5 +1,5 @@
-﻿using larpex_events.Contracts.Requests;
-using larpex_events.Contracts.Responses;
+﻿using larpex_events.contracts.Contracts.Requests;
+using larpex_events.contracts.Contracts.Responses;
 
 namespace larpex_events.Services.Interface;
 

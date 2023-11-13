@@ -1,6 +1,7 @@
 ﻿using larpex_events.Domain;
+using larpex_events.Services.Interface;
 
-namespace larpex_events.Repository;
+namespace larpex_events.Persistance;
 
 public class EventsRepository : IEventsRepository
 {
