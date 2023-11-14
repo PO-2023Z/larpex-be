@@ -11,14 +11,16 @@ public class AuthController : ControllerBase
     {
 
         string? key = configuration.GetValue<string>("JWT:Key");
+        string? issuer = configuration.GetValue<string>("JWT:Issuer");
         int expirationTime = configuration.GetValue<int>("JWT:ExpirationTimeInMinutes");
-        if (String.IsNullOrWhiteSpace(key))
+        if (String.IsNullOrWhiteSpace(key) || String.IsNullOrWhiteSpace(issuer))
         {
             throw new Exception("Exception while creating auth controller!");
         }
 
         TokenGenerator.KeyString = key;
         TokenGenerator.ExpirationTime = expirationTime;
+        TokenGenerator.IssuerName = issuer;
     }
     
     
@@ -38,4 +40,6 @@ public class AuthController : ControllerBase
 
         return Ok(result);
     }
+    
+    
 }

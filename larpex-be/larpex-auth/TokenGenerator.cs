@@ -11,13 +11,13 @@ public static class TokenGenerator
 {
     public static int ExpirationTime;
     public static string? KeyString;
-    public static readonly string IssuerName = "LarpexApp";
+    public static string? IssuerName;
     
     public static string GenerateToken(string email)
     {
-        if (String.IsNullOrWhiteSpace(KeyString))
+        if (String.IsNullOrWhiteSpace(KeyString) || String.IsNullOrWhiteSpace(IssuerName))
         {
-            throw new Exception("Key is invalid");
+            throw new Exception("Key or Issuer is invalid");
         }
         
         var key = Encoding.UTF8.GetBytes(KeyString);
