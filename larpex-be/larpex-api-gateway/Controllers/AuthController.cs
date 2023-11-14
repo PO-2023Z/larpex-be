@@ -9,7 +9,6 @@ public class AuthController : ControllerBase
 {
     public AuthController(IConfiguration configuration)
     {
-
         string? key = configuration.GetValue<string>("JWT:Key");
         string? issuer = configuration.GetValue<string>("JWT:Issuer");
         int expirationTime = configuration.GetValue<int>("JWT:ExpirationTimeInMinutes");
