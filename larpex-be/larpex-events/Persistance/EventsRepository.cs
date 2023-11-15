@@ -35,4 +35,14 @@ public class EventsRepository : IEventsRepository
     {
         throw new NotImplementedException();
     }
+
+    public decimal GetEventPrice(Guid eventId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetPaymentStatus(Guid eventId, bool paid)
+    {
+        throw new NotImplementedException();
+    }
 }
