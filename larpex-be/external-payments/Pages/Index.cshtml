@@ -1,0 +1,41 @@
+﻿@page
+@using System.Text.Json;
+@using external_payments.Models;
+@model external_payments.Pages.IndexModel
+@{
+    ViewData["Title"] = "Payment";
+    // get payment id from query string
+    string paymentId = Request.Query["paymentId"];
+
+    // decode paymentId from base64 to PaymentId
+    string decodedPaymentId = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(paymentId));
+    TransactionId? transactionId = JsonSerializer.Deserialize<TransactionId>(decodedPaymentId);
+
+    if (transactionId == null)
+    {
+        <h1>Invalid Payment Id</h1>
+    }
+    else
+    {
+        <h1>Do zapłaty: @transactionId.Amount</h1>
+        <button onclick="OnClick()">Zapłać</button>
+    }
+
+    string OnClick()
+    {
+        Redirect(transactionId.UrlRedirect);
+        return "<h1>Ok zapłacono</h1>";
+    }
+}
+<h1>Hello</h1>
+@paymentId
+
+@section Scripts
+    {
+    <script>
+        function ButtonClick() {
+            @OnClick();
+        }
+
+    </script>
+} 
