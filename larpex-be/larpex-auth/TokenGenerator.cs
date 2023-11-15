@@ -43,4 +43,9 @@ public static class TokenGenerator
         var token = tokenHandler.WriteToken(tokenJwt);
         return token;
     }
+
+    public static string GetEmail(string token)
+    {
+        throw new NotImplementedException();
+    }
 }

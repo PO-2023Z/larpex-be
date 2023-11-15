@@ -3,6 +3,6 @@
 public class CreateTransactionRequest
 {
     public Guid PaymentId { get; set; }
-    public string UserEmail { get; set; }
+    public string UserToken { get; set; }
     public string Method { get; set; }
 }

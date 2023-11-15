@@ -1,6 +1,6 @@
-﻿using larpex_events.contracts.Contracts.Requests;
+﻿using larpex_auth;
+using larpex_events.contracts.Contracts.Requests;
 using larpex_events.contracts.Contracts.Responses;
-using larpex_events.Domain.Enums;
 using larpex_payment_adapter.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using PaymentMethod = larpex_payment_adapter.Domain.PaymentMethod;
@@ -20,7 +20,7 @@ public class PaymentsController : ControllerBase
     }
     
     
-    [HttpPost()]
+    [HttpPost("init/")]
     public async Task<ActionResult<InitPayResponse>> InitPayment(InitPaymentRequest request)
     {
         
@@ -33,7 +33,8 @@ public class PaymentsController : ControllerBase
     public async Task<string> CreateTransaction(CreateTransactionRequest request)
     {
         Enum.TryParse(request.Method, out PaymentMethod method);
-        return _paymentsAdapterService.CreateTransaction(request.PaymentId, request.UserEmail, method);
+        var email = TokenGenerator.GetEmail(request.UserToken);
+        return _paymentsAdapterService.CreateTransaction(request.PaymentId, email, method);
     }
     
     [HttpPost("confirm/{paymentId:guid}")]

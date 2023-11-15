@@ -50,13 +50,14 @@ public class PaymentsAdapterService : IPaymentsAdapterService
         {
             Id = paymentId,
             UserEmail = userEmail,
-            Method = method
+            Method = method,
+            Status = PaymentStatus.NotResolved
         };
         _paymentRepository.Update(payment);
         
         
         // register transaction with external-payments
-        // probably change return type to a response with return and redirect urls
+        // get the transaction id used for redirect link
         throw new NotImplementedException();
     }
 
