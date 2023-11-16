@@ -1,5 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# 
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-events", "larpex-events\larpex-events.csproj", "{FE3E2078-1C7F-4F59-A27E-D03729EE187E}"
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -17,7 +19,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-payment-adapter", "l
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-api-gateway", "larpex-api-gateway\larpex-api-gateway.csproj", "{81D5C8E0-C3A5-4EA4-8354-E7326061EA71}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-events.contracts", "larpex-events.contracts\larpex-events.contracts.csproj", "{818987E7-02BF-4DAA-91BB-E622FEAFCE21}"
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "external-payments", "external-payments\external-payments.csproj", "{2060D85D-C473-46FF-A8A3-541D1A2C05C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-api-gateway", "larpex-api-gateway\larpex-api-gateway.csproj", "{B01D1EB4-7A3A-419C-B213-D71435B0BCB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,11 +62,16 @@ Global
 		{2060D85D-C473-46FF-A8A3-541D1A2C05C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2060D85D-C473-46FF-A8A3-541D1A2C05C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2060D85D-C473-46FF-A8A3-541D1A2C05C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B01D1EB4-7A3A-419C-B213-D71435B0BCB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B01D1EB4-7A3A-419C-B213-D71435B0BCB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B01D1EB4-7A3A-419C-B213-D71435B0BCB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B01D1EB4-7A3A-419C-B213-D71435B0BCB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F573325-7845-4A72-A28A-B1DA55345E38}
+
 	EndGlobalSection
 EndGlobal
