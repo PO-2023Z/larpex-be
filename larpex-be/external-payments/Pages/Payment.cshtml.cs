@@ -8,5 +8,11 @@ namespace external_payments.Pages
         public void OnGet()
         {
         }
+
+        public IActionResult Submit()
+        {
+            // Redirect to AnotherPage
+            return RedirectToPage("/AnotherPage");
+        }
     }
 }
