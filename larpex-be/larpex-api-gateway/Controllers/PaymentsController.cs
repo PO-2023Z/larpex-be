@@ -21,10 +21,10 @@ public class PaymentsController : ControllerBase
     
     
     [HttpPost("init/")]
-    public async Task<ActionResult<InitPayResponse>> InitPayment(InitPaymentRequest request)
+    public async Task<ActionResult<InitPayResponse>> InitPayment(Guid eventId)
     {
         
-        var resp = _paymentsAdapterService.InitPayment(request.EventId);
+        var resp = _paymentsAdapterService.InitPayment(eventId);
         if (resp == null) return NotFound();
         return resp;
     }
