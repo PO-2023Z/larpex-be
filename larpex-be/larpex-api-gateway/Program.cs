@@ -1,4 +1,4 @@
-using larpex_events.Persistance.DataTransferObjects;
+using larpex_events.Persistance;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

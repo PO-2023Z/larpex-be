@@ -1,7 +1,7 @@
 ﻿using larpex_events.Persistance.DTOs;
 using Microsoft.EntityFrameworkCore;
 
-namespace larpex_events.Persistance.DataTransferObjects;
+namespace larpex_events.Persistance;
 
 public partial class LarpexContext : DbContext
 {
