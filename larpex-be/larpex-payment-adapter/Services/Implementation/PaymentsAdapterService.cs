@@ -1,3 +1,4 @@
+
 ﻿using System.Net.Http.Json;
 using larpex_events.contracts.Contracts.Requests;
 using larpex_events.contracts.Contracts.Responses;
@@ -20,8 +21,6 @@ public class PaymentsAdapterService : IPaymentsAdapterService
         _eventsRepository = eventsRepository;
         _httpClient = httpClient;
     }
-
-
     public InitPayResponse? InitPayment(Guid eventId)
     {
         // Check if event is correct
@@ -30,14 +29,12 @@ public class PaymentsAdapterService : IPaymentsAdapterService
         {
             return null;
         }
-
         // Create new payment entry in the db
         var payment = new Payment
         {
             EventId = eventId
         };
         var id = _paymentRepository.Add(payment);
-
 
         return new InitPayResponse()
         {
@@ -47,6 +44,7 @@ public class PaymentsAdapterService : IPaymentsAdapterService
     }
     
     public async Task<string> CreateTransaction(Guid paymentId, string userEmail, PaymentMethod method)
+
     {
         // Update the payment data in the db
         // (just assume that the paymentId is correct) (for now)
@@ -78,8 +76,6 @@ public class PaymentsAdapterService : IPaymentsAdapterService
 
 
         return "https://larpex-external-payments.azurewebsites.net/Payment?paymentId=" + transactionId;
-
-
     }
 
     public PaymentStatus CheckPaymentStatus(Guid paymentId)

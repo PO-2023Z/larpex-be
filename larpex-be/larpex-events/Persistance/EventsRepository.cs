@@ -67,4 +67,3 @@ public class EventsRepository : IEventsRepository
         return;
         throw new NotImplementedException();
     }
-}

@@ -9,7 +9,6 @@ public class PaymentRepository : IPaymentRepository
     public Guid Add(Payment payment)
     {
         return Guid.NewGuid();
-        throw new NotImplementedException();
     }
 
     public void Update(Payment payment)
@@ -26,9 +25,9 @@ public class PaymentRepository : IPaymentRepository
 
     public PaymentStatus GetPaymentStatus(Guid paymentId)
     {
+
         var r = new Random();
         return (PaymentStatus)r.Next(0, 2);
-
         throw new NotImplementedException();
     }
 
