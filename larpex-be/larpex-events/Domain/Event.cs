@@ -8,7 +8,7 @@ public class Event
     public string Name { get; set; }
     public string OwnerEmail { get; set; }
     public EventStatus Status { get; set; }
-    public Decimal Price { get; set; }
+    public decimal Price { get; set; }
     public bool Paid { get; set; }
     public Game Game { get; set; }
     public Location Location { get; set; }

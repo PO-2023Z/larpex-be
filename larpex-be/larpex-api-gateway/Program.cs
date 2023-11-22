@@ -1,4 +1,10 @@
 using larpex_events.Persistance;
+using larpex_events.Services.Interface;
+using larpex_payment_adapter.Persistence;
+using larpex_payment_adapter.Services.Implementation;
+using larpex_payment_adapter.Services.Interface;
+
+using larpex_events.Persistance;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +15,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IPaymentsAdapterService, PaymentsAdapterService>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IEventsRepository, EventsRepository>();
+builder.Services.AddScoped(sp => new HttpClient
+    { BaseAddress = new Uri("https://larpex-external-payments.azurewebsites.net/api/") });
 
 builder.Services.AddDbContext<LarpexContext>(options => 
     options.UseNpgsql(builder.Configuration.GetConnectionString("LarpexContext")));

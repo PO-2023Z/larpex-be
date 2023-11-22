@@ -121,6 +121,19 @@ public class EventsRepository : IEventsRepository
         };
     }
 
+    public decimal GetEventPrice(Guid eventId)
+    {
+        throw new NotImplementedException();
+    }
+
+
+    public void SetPaymentStatus(Guid eventId, bool paid)
+    {
+        return;
+        throw new NotImplementedException();
+       
+    }
+
     private Domain.EventSettings MapToEventSettings()
     {
         return new EventSettings

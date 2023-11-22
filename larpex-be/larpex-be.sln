@@ -1,21 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# 
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-events", "larpex-events\larpex-events.csproj", "{FE3E2078-1C7F-4F59-A27E-D03729EE187E}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34018.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-events", "larpex-events\larpex-events.csproj", "{FE3E2078-1C7F-4F59-A27E-D03729EE187E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-auth", "larpex-auth\larpex-auth.csproj", "{3F66B038-01C8-4C10-9DEB-A3D9668AA0F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-auth", "larpex-auth\larpex-auth.csproj", "{3F66B038-01C8-4C10-9DEB-A3D9668AA0F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-locations", "larpex-locations\larpex-locations.csproj", "{41E9FD35-3171-4B4C-8AAB-AA8222D7F7C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-locations", "larpex-locations\larpex-locations.csproj", "{41E9FD35-3171-4B4C-8AAB-AA8222D7F7C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-games", "larpex-games\larpex-games.csproj", "{DFDB183E-4605-4250-9DA8-19F911DB92AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-games", "larpex-games\larpex-games.csproj", "{DFDB183E-4605-4250-9DA8-19F911DB92AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-play", "larpex-play\larpex-play.csproj", "{3FBA6A9F-E95F-43A7-A72F-395C54C2501B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-play", "larpex-play\larpex-play.csproj", "{3FBA6A9F-E95F-43A7-A72F-395C54C2501B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-payment-adapter", "larpex-payment-adapter\larpex-payment-adapter.csproj", "{4F8A50AA-A301-4036-96B7-08C35761F3AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-payment-adapter", "larpex-payment-adapter\larpex-payment-adapter.csproj", "{4F8A50AA-A301-4036-96B7-08C35761F3AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-events.contracts", "larpex-events.contracts\larpex-events.contracts.csproj", "{818987E7-02BF-4DAA-91BB-E622FEAFCE21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-api-gateway", "larpex-api-gateway\larpex-api-gateway.csproj", "{81D5C8E0-C3A5-4EA4-8354-E7326061EA71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "larpex-api-gateway", "larpex-api-gateway\larpex-api-gateway.csproj", "{B01D1EB4-7A3A-419C-B213-D71435B0BCB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-events.contracts", "larpex-events.contracts\larpex-events.contracts.csproj", "{818987E7-02BF-4DAA-91BB-E622FEAFCE21}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "external-payments", "external-payments\external-payments.csproj", "{2060D85D-C473-46FF-A8A3-541D1A2C05C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,9 +51,23 @@ Global
 		{4F8A50AA-A301-4036-96B7-08C35761F3AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F8A50AA-A301-4036-96B7-08C35761F3AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F8A50AA-A301-4036-96B7-08C35761F3AC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B01D1EB4-7A3A-419C-B213-D71435B0BCB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B01D1EB4-7A3A-419C-B213-D71435B0BCB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B01D1EB4-7A3A-419C-B213-D71435B0BCB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B01D1EB4-7A3A-419C-B213-D71435B0BCB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81D5C8E0-C3A5-4EA4-8354-E7326061EA71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81D5C8E0-C3A5-4EA4-8354-E7326061EA71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81D5C8E0-C3A5-4EA4-8354-E7326061EA71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81D5C8E0-C3A5-4EA4-8354-E7326061EA71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{818987E7-02BF-4DAA-91BB-E622FEAFCE21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{818987E7-02BF-4DAA-91BB-E622FEAFCE21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{818987E7-02BF-4DAA-91BB-E622FEAFCE21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{818987E7-02BF-4DAA-91BB-E622FEAFCE21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2060D85D-C473-46FF-A8A3-541D1A2C05C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2060D85D-C473-46FF-A8A3-541D1A2C05C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2060D85D-C473-46FF-A8A3-541D1A2C05C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2060D85D-C473-46FF-A8A3-541D1A2C05C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F573325-7845-4A72-A28A-B1DA55345E38}
 	EndGlobalSection
 EndGlobal

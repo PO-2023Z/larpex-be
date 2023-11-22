@@ -9,4 +9,5 @@ public interface IEventsRepository
     void Add(Event eventObject);
     void Remove(Guid eventId);
     void Update(Event eventObject);
+    void SetPaymentStatus(Guid eventId, bool paid);
 }
