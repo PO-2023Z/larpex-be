@@ -1,5 +1,6 @@
 ﻿using larpex_events.Domain;
 using larpex_events.Services.Interface;
+using Event = larpex_events.Persistance.DTOs.Event;
 
 namespace larpex_events.Persistance;
 
