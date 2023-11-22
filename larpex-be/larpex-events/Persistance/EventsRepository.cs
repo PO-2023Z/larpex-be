@@ -14,44 +14,53 @@ public class EventsRepository : IEventsRepository
         _larpexContext = larpexContext;
     }
 
-    public void Add(Event eventObject)
+    public void Add(Domain.Event eventObject)
     {
-        //TODO: Map Event into EventDTO
-        
-        //TODO: Add EventDTO to _larpexContext.Events
+        var eventDto = MapToEventDTO(eventObject);
+        _larpexContext.Events.Add(eventDto);
+        _larpexContext.SaveChanges();
     }
 
-    public Event? Get(Guid eventId)
+    public Domain.Event? Get(Guid eventId)
     {
-        //TODO: Get EventDTO from _larpexContext.Events
         var eventDto = _larpexContext.Events.FirstOrDefault(e => e.Eventid == eventId.ToString());
+        if(eventDto == null)
+        {
+            return null;
+        }
         
-        //TODO: Map EventDTO into Event
-        
-        
-        throw new NotImplementedException();
+        return MapToEvent(eventDto);
     }
 
-    public List<Event> GetAll()
+    public List<Domain.Event> GetAll()
     {
-        //TODO: Get all EventDTOs from _larpexContext.Events
+        var eventDtos = _larpexContext.Events.ToList();
+        List<Domain.Event> events = new List<Domain.Event>();
         
-        //TODO: Map EventDTOs into Events
+        foreach (var eventDto in eventDtos)
+        {
+            events.Add(MapToEvent(eventDto));
+        }
         
-        
-        throw new NotImplementedException();
+        return events;
     }
 
     public void Remove(Guid eventId)
     {
-        //TODO: Remove EventDTO from _larpexContext.Events by eventId
-        throw new NotImplementedException();
+        var eventDto = _larpexContext.Events.FirstOrDefault(eventObj => eventObj.Eventid == eventId.ToString());
+        if(eventDto == null)
+        {
+            return;
+        }
+        _larpexContext.Events.Remove(eventDto);
+        _larpexContext.SaveChanges();
     }
 
-    public void Update(Event eventObject)
+    public void Update(Domain.Event eventObject)
     {
-        //TODO: Update EventDTO in _larpexContext.Events by eventId
-        throw new NotImplementedException();
+        var eventDto = MapToEventDTO(eventObject);
+        _larpexContext.Events.Update(eventDto);
+        _larpexContext.SaveChanges();
     }
 
     private Domain.Event MapToEvent(Event eventDto)
