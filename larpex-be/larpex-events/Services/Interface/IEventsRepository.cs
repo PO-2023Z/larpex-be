@@ -9,6 +9,5 @@ public interface IEventsRepository
     void Add(Event eventObject);
     void Remove(Guid eventId);
     void Update(Event eventObject);
-    decimal GetEventPrice(Guid eventId);
     void SetPaymentStatus(Guid eventId, bool paid);
 }

@@ -30,22 +30,29 @@ public class PaymentsController : ControllerBase
     }
     
     [HttpPost("create-transaction/")]
-    public async Task<string> CreateTransaction(CreateTransactionRequest request)
+    public async Task<ActionResult<string>> CreateTransaction(CreateTransactionRequest request)
     {
+        string token = HttpContext.Request.Headers["Authorization"];
+        if (string.IsNullOrWhiteSpace(token) || !token.StartsWith("Bearer "))
+        {
+            return Unauthorized("Invalid token");
+        }
+        var email = TokenGenerator.GetEmail(token.Substring("Bearer ".Length));
+        
         Enum.TryParse(request.Method, out PaymentMethod method);
-        var email = TokenGenerator.GetEmail(request.UserToken);
-        return _paymentsAdapterService.CreateTransaction(request.PaymentId, email, method);
+        return await _paymentsAdapterService.CreateTransaction(request.PaymentId, email, method);
     }
     
     [HttpPost("confirm/{paymentId:guid}")]
-    public async Task ConfirmPayment(Guid paymentId)
+    public async Task ConfirmPayment(Guid paymentId, [FromQuery] string status)
     {
-        _paymentsAdapterService.ConfirmPayment(paymentId);
+        Enum.TryParse(status, out PaymentStatus paymentStatus);
+        _paymentsAdapterService.ConfirmPayment(paymentId, paymentStatus);
     }
 
     [HttpGet("{paymentId:guid}")]
-    public async Task<PaymentStatus> CheckPaymentStatus(Guid paymentId)
+    public async Task<string> CheckPaymentStatus(Guid paymentId)
     {
-        return _paymentsAdapterService.CheckPaymentStatus(paymentId);
+        return _paymentsAdapterService.CheckPaymentStatus(paymentId).ToString();
     }
 }

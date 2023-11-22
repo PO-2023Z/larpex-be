@@ -15,7 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPaymentsAdapterService, PaymentsAdapterService>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IEventsRepository, EventsRepository>();
-
+builder.Services.AddScoped(sp => new HttpClient
+    { BaseAddress = new Uri("https://larpex-external-payments.azurewebsites.net/api/") });
 
 var app = builder.Build();
 app.UseCors(corsPolicyBuilder => 
