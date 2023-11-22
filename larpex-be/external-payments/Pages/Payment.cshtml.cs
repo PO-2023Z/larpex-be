@@ -9,22 +9,5 @@ namespace external_payments.Pages
         {
         }
 
-
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> OnPost(string urlReturn, string urlRedirect)
-        {
-            try
-            {
-                using (var httpClient = new HttpClient())
-                {
-                    await httpClient.PostAsync(urlReturn, null);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-            return Redirect(urlRedirect);
-        }
     }
 }

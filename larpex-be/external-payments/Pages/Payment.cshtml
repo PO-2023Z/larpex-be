@@ -14,6 +14,37 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
+
+<script>
+    async function performClientSidePost(url) {
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // Adjust the content type based on your data
+                },
+            });
+
+            if (response.ok) {
+                console.log('POST request successful');
+            } else {
+                console.error('POST request failed with status:', response.status);
+            }
+        } catch (error) {
+            console.error('Error during POST request:', error);
+        }
+    }
+
+    async function handleFormSubmit() {
+        const urlReturn = document.getElementById('urlReturn').value;
+        const urlRedirect = document.getElementById('urlRedirect').value;
+
+        await performClientSidePost(urlReturn);
+
+        window.location.href = urlRedirect;
+    }
+</script>
+
 <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
 
     <header class="p-3">
@@ -46,13 +77,10 @@
             double amount = (double)transactionId.Amount / 100;
             <h1>Do zapłaty: @amount zł</h1>
 
+            <input type="text" id="urlReturn" hidden value="@transactionId.UrlReturn" />
+            <input type="text" id="urlRedirect" hidden value="@transactionId.UrlRedirect" />
+            <button class="btn btn-success p-3 m-5 btn-lg" onclick="handleFormSubmit()"><h2>Zapłać!</h2></button>
 
-            <form method="post">
-                <input type="text" name="urlReturn" hidden value="@transactionId.UrlReturn" />
-                <input type="text" name="urlRedirect" hidden value="@transactionId.UrlRedirect" />
-                @Html.AntiForgeryToken()
-                <button class="btn btn-success p-3 m-5 btn-lg" type="submit" onclick="ButtonClick()"><h2>Zapłać!</h2></button>
-            </form>
         }
     }
 
