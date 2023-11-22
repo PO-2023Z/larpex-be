@@ -4,11 +4,12 @@ public class EventDTO
 {
     public string Id { get; set; }
     public string Name { get; set; }
-    public string Description { get; set; }
+    public string DescriptionForClient { get; set; }
+    public string DescriptionForEmployee { get; set; }
     public decimal Price { get; set; }
-    public string LocationName { get; set; }
-    public DateTime Date { get; set; }
+    public Guid Location { get; set; }
+    public DateTime? Date { get; set; }
     //public EventStatus Status { get; set; }
-    public int CurrentlySignedPlayers { get; set; }
-    public int MaxPlayers { get; set; }
+    public int? CurrentlySignedPlayers { get; set; }
+    public int? MaxPlayers { get; set; }
 }

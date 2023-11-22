@@ -13,11 +13,11 @@ public static class MapperExtensionMethods
         {
             Id = eventObject.Id.ToString(),
             Name = eventObject.Name,
-            Description = eventObject.Description,
+            DescriptionForClient = eventObject.DescriptionForClients.TextDescription,
+            DescriptionForEmployee = eventObject.DescriptionForEmployees.TechnicalDescription,
             Price = eventObject.Price,
-            LocationName = eventObject.LocationName,
-            Date = eventObject.Date,
-            //EventStatus = Event.Status,
+            Location= eventObject.Location.Id,
+            Date = eventObject.EventDate,
             CurrentlySignedPlayers = eventObject.CurrentlySignedPlayers,
             MaxPlayers = eventObject.MaxPlayers,
         };

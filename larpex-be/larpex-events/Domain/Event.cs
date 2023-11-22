@@ -18,5 +18,4 @@ public class Event
     public EventDescriptionForEmployee DescriptionForEmployees { get; set; }
     public EventDescriptionForClient DescriptionForClients { get; set; }
     public EventSettings Settings { get; set; }
-    
 }
