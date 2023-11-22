@@ -1,0 +1,98 @@
+﻿@page
+@using System.Text.Json;
+@using System.Text;
+@using external_payments.Models;
+@model external_payments.Pages.PaymentModel
+<style>
+    .logo {
+        border: 4px dashed rgb(35, 148, 253);
+        border-radius: 10px;
+        cursor: grab;
+    }
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+<script>
+    async function performClientSidePost(url) {
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // Adjust the content type based on your data
+                },
+            });
+
+            if (response.ok) {
+                console.log('POST request successful');
+            } else {
+                console.error('POST request failed with status:', response.status);
+            }
+        } catch (error) {
+            console.error('Error during POST request:', error);
+        }
+    }
+
+    async function handleFormSubmit() {
+        const urlReturn = document.getElementById('urlReturn').value;
+        const urlRedirect = document.getElementById('urlRedirect').value;
+
+        await performClientSidePost(urlReturn + '?success=true');
+
+        window.location.href = urlRedirect;
+    }
+
+    async function cancelPayment() {
+        const urlReturn = document.getElementById('urlReturn').value;
+        const urlRedirect = document.getElementById('urlRedirect').value;
+
+        await performClientSidePost(urlReturn + '?success=false');
+
+        window.location.href = urlRedirect;
+    }
+</script>
+
+<div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+
+    <header class="p-3">
+        <h1 class="text-primary display-1 mb-5 p-3 logo" style="font-family:'Comic Sans MS';">Przelewy25</h1>
+    </header>
+    @{
+        ViewData["Title"] = "Payment";
+        // get payment id from query string
+        string paymentId = Request.Query["paymentId"];
+
+        // decode paymentId from base64 to PaymentId
+        string decodedPaymentId = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(paymentId));
+        TransactionId? transactionId = JsonSerializer.Deserialize<TransactionId>(decodedPaymentId);
+
+
+        if (transactionId == null)
+        {
+            <h1>Invalid Payment Id</h1>
+        }
+        else
+        {
+            var url = Html.Raw($"'{transactionId.UrlRedirect}'");
+
+            <script>
+                function ButtonClick() {
+                    window.location.href = @url;
+                }
+            </script>
+
+            double amount = (double)transactionId.Amount / 100;
+            <h1>Do zapłaty: @amount zł</h1>
+
+            <input type="text" id="urlReturn" hidden value="@transactionId.UrlReturn" />
+            <input type="text" id="urlRedirect" hidden value="@transactionId.UrlRedirect" />
+            <button class="btn btn-success p-3 m-5 btn-lg" onclick="handleFormSubmit()"><h2>Zapłać!</h2></button>
+
+            <button class="btn btn-danger p-3 m-1 btn-lg" onclick="cancelPayment()"><h7>Anuluj</h7></button>
+
+        }
+    }
+
+</div>

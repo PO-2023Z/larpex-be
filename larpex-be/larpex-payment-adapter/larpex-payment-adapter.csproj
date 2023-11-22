@@ -7,4 +7,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\larpex-events.contracts\larpex-events.contracts.csproj" />
+      <ProjectReference Include="..\larpex-events\larpex-events.csproj" />
+    </ItemGroup>
+
 </Project>
