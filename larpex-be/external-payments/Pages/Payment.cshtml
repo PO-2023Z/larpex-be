@@ -1,7 +1,8 @@
 ﻿@page
 @using System.Text.Json;
+@using System.Text;
 @using external_payments.Models;
-@model external_payments.Pages.IndexModel
+@model external_payments.Pages.PaymentModel
 <style>
     .logo {
         border: 4px dashed rgb(35, 148, 253);
@@ -38,20 +39,21 @@
 
             <script>
                 function ButtonClick() {
-                    alert("Hura udało się!");
-
                     window.location.href = @url;
                 }
-
             </script>
 
             double amount = (double)transactionId.Amount / 100;
             <h1>Do zapłaty: @amount zł</h1>
-            <button class="btn btn-success p-3 m-5 btn-lg" onclick="ButtonClick()"><h2>Zapłać!</h2></button>
 
-            <a href="@transactionId.UrlRedirect" onclick="ButtonClick()">Zapłać</a>
+
+            <form method="post">
+                <input type="text" name="urlReturn" hidden value="@transactionId.UrlReturn" />
+                <input type="text" name="urlRedirect" hidden value="@transactionId.UrlRedirect" />
+                @Html.AntiForgeryToken()
+                <button class="btn btn-success p-3 m-5 btn-lg" type="submit" onclick="ButtonClick()"><h2>Zapłać!</h2></button>
+            </form>
         }
     }
 
 </div>
-

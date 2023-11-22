@@ -3,16 +3,28 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace external_payments.Pages
 {
-    public class IndexModel : PageModel
+    public class PaymentModel : PageModel
     {
         public void OnGet()
         {
         }
 
-        public IActionResult Submit()
+
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OnPost(string urlReturn, string urlRedirect)
         {
-            // Redirect to AnotherPage
-            return RedirectToPage("/AnotherPage");
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    await httpClient.PostAsync(urlReturn, null);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return Redirect(urlRedirect);
         }
     }
 }
