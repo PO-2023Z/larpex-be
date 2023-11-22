@@ -8,4 +8,11 @@ public class Event
     public string Name { get; set; }
     public string OwnerEmail { get; set; }
     public EventStatus Status { get; set; }
+    public Decimal Price { get; set; }
+    public bool Paid { get; set; }
+    public Game Game { get; set; }
+    public Location Location { get; set; }
+    public EventDescriptionForEmployee DescriptionForEmployees { get; set; }
+    public EventDescriptionForClient DescriptionForClients { get; set; }
+    public EventSettings Settings { get; set; }
 }
