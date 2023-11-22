@@ -39,7 +39,16 @@
         const urlReturn = document.getElementById('urlReturn').value;
         const urlRedirect = document.getElementById('urlRedirect').value;
 
-        await performClientSidePost(urlReturn);
+        await performClientSidePost(urlReturn + '?success=true');
+
+        window.location.href = urlRedirect;
+    }
+
+    async function cancelPayment() {
+        const urlReturn = document.getElementById('urlReturn').value;
+        const urlRedirect = document.getElementById('urlRedirect').value;
+
+        await performClientSidePost(urlReturn + '?success=false');
 
         window.location.href = urlRedirect;
     }
@@ -80,6 +89,8 @@
             <input type="text" id="urlReturn" hidden value="@transactionId.UrlReturn" />
             <input type="text" id="urlRedirect" hidden value="@transactionId.UrlRedirect" />
             <button class="btn btn-success p-3 m-5 btn-lg" onclick="handleFormSubmit()"><h2>Zapłać!</h2></button>
+
+            <button class="btn btn-danger p-3 m-1 btn-lg" onclick="cancelPayment()"><h7>Anuluj</h7></button>
 
         }
     }
