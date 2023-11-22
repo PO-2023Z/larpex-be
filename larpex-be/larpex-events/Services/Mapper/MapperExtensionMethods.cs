@@ -1,0 +1,114 @@
+﻿using larpex_events.contracts.Contracts.DataTransferObjects;
+using larpex_events.contracts.Contracts.Requests;
+using larpex_events.contracts.Contracts.Responses;
+using larpex_events.Domain;
+
+namespace larpex_events.Services.Mapper;
+
+public static class MapperExtensionMethods
+{
+    public static EventDTO MapToEventDTO(this Event eventObject)
+    {
+        return new EventDTO
+        {
+            Id = eventObject.Id.ToString(),
+            Name = eventObject.Name,
+            Description = eventObject.Description,
+            Price = eventObject.Price,
+            LocationName = eventObject.LocationName,
+            Date = eventObject.Date,
+            //EventStatus = Event.Status,
+            CurrentlySignedPlayers = eventObject.CurrentlySignedPlayers,
+            MaxPlayers = eventObject.MaxPlayers,
+        };
+    }
+
+    public static ReadEventResponse MapToReadEventResponse(this Event eventObject)
+    {
+        return new ReadEventResponse
+        {
+            Event = eventObject.MapToEventDTO()
+        };
+    }
+
+    public static CreateEventResponse MapToCreateEventResponse(this Event eventObject)
+    {
+        return new CreateEventResponse
+        {
+            Event = eventObject.MapToEventDTO()
+        };
+    }
+
+    public static UpdateEventResponse MapToUpdateEventResponse(this Event eventObject)
+    {
+        return new UpdateEventResponse
+        {
+            Event = eventObject.MapToEventDTO()
+        };
+    }
+
+    public static UpdateEventSettingsResponse MapToUpdateEventSettingsResponse(this Event eventObject)
+    {
+        return new UpdateEventSettingsResponse
+        {
+            EventSettings = new EventSettingsDTO
+            {
+                MaxPlayerLimit = eventObject.Settings?.MaxPlayerLimit,
+                IsVisible = eventObject.Settings?.IsVisible,
+                IsExternalOrganiser = eventObject.Settings?.IsExternalOrganiser,
+            }
+        };
+    }
+
+    public static GetEventsResponse MapToGetEventsResponse(this List<Event> events)
+    {
+        return new GetEventsResponse
+        {
+            Events = events.Select(e => e.MapToEventDTO()).ToList()
+        };
+    }
+
+    public static Event MapToEvent(this CreateEventRequest createEventRequest)
+    {
+        return new Event
+        {
+            Id = Guid.NewGuid(),
+            Name = createEventRequest.Event.Name,
+            //Description = createEventRequest.Event.Des,
+            Price = createEventRequest.Event.Price ,
+            //LocationName = createEventRequest. ,
+            Date = createEventRequest.Event.EventDate,
+            CurrentlySignedPlayers = createEventRequest.Event.CurrentlySignedPlayers,
+            MaxPlayers = createEventRequest.Event.MaxPlayers,
+            //OwnerEmail = createEventRequest.,
+            //Status = createEventRequest.Event. ,
+        };
+    }
+
+    public static Event MapToEvent(this UpdateEventRequest createEventRequest)
+    {
+        return new Event
+        {
+            Id = Guid.NewGuid(),
+            Name = createEventRequest.Event.Name,
+            //Description = createEventRequest.Event.Des,
+            Price = createEventRequest.Event.Price,
+            //LocationName = createEventRequest. ,
+            Date = createEventRequest.Event.EventDate,
+            CurrentlySignedPlayers = createEventRequest.Event.CurrentlySignedPlayers,
+            MaxPlayers = createEventRequest.Event.MaxPlayers,
+            //OwnerEmail = createEventRequest.,
+            //Status = createEventRequest.Event. ,
+        };
+    }
+
+    public static EventSettings MapToEventSettings(this UpdateEventSettingsRequest updateEventSettingsRequest)
+    {
+        return new EventSettings
+        {
+            MaxPlayerLimit = updateEventSettingsRequest.EventSettings.MaxPlayerLimit,
+            IsVisible = updateEventSettingsRequest.EventSettings.IsVisible,
+            IsExternalOrganiser = updateEventSettingsRequest.EventSettings.IsExternalOrganiser
+        };
+    }
+}
