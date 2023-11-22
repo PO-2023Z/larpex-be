@@ -10,4 +10,9 @@ public class Event
     public EventStatus Status { get; set; }
     public decimal Price { get; set; }
     public bool Paid { get; set; }
+    public Game Game { get; set; }
+    public Location Location { get; set; }
+    public EventDescriptionForEmployee DescriptionForEmployees { get; set; }
+    public EventDescriptionForClient DescriptionForClients { get; set; }
+    public EventSettings Settings { get; set; }
 }
