@@ -8,4 +8,5 @@ public class Event
     public string Name { get; set; }
     public string OwnerEmail { get; set; }
     public EventStatus Status { get; set; }
+    public bool Paid { get; set; }
 }
