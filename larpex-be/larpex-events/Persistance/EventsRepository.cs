@@ -73,6 +73,24 @@ public class EventsRepository : IEventsRepository
         };
     }
     
+    private Event MapToEventDTO(Domain.Event eventObject)
+    {
+        // Map Domain.Event object into Event object
+        return new Event
+        {
+            Eventid = eventObject.Id.ToString(),
+            Eventname = eventObject.Name,
+            Eventstate = eventObject.Status.ToString(),
+            Priceperuser = eventObject.Price,
+            Paidfor = eventObject.Paid,
+            Gameid = eventObject.Game.Id.ToString(),
+            Placeid = eventObject.Location.Id.ToString(),
+            Description = eventObject.DescriptionForClients.TextDescription,
+            Startdate = TimeOnly.FromDateTime(eventObject.DescriptionForClients.Date),
+            Enddate = TimeOnly.FromDateTime(eventObject.DescriptionForClients.Date).AddHours(2)
+        };
+    }
+    
     private Domain.EventDescriptionForClient MapToEventDescriptionForClient(string? description, TimeOnly? startDate)
     {
         TimeOnly newStartDate = startDate ?? TimeOnly.FromDateTime(DateTime.Now);
