@@ -34,7 +34,7 @@ public class EventOrganiserService : IEventsOrganiserService
 
         if (eventObject.OwnerEmail != requestOwnerEmail)
         {
-            throw new Exception("Dupa");
+            throw new Exception($"Person with email: {requestOwnerEmail} is not authorized to this Event");
         }
 
         _eventsRepository.Remove(eventId);
@@ -55,7 +55,7 @@ public class EventOrganiserService : IEventsOrganiserService
 
         if (eventObject.OwnerEmail != requestOwnerEmail)
         {
-            throw new Exception("Dupa");
+            throw new Exception($"Person with email: {requestOwnerEmail} is not authorized to this Event");
         }
 
         return eventObject.MapToReadEventResponse();
@@ -68,7 +68,7 @@ public class EventOrganiserService : IEventsOrganiserService
 
         if (eventObject.OwnerEmail != requestOwnerEmail)
         {
-            throw new Exception("Dupa");
+            throw new Exception($"Person with email: {requestOwnerEmail} is not authorized to this Event");
         }
 
         eventObject = request.MapToEvent();
@@ -86,7 +86,7 @@ public class EventOrganiserService : IEventsOrganiserService
 
         if (eventObject.OwnerEmail != requestOwnerEmail)
         {
-            throw new Exception("Dupa");
+            throw new Exception($"Person with email: {requestOwnerEmail} is not authorized to this Event");
         }
 
         eventObject.Settings = request.MapToEventSettings();
