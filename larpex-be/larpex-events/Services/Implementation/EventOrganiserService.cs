@@ -9,12 +9,12 @@ public class EventOrganiserService : IEventsOrganiserService
 {
     private readonly IEventsRepository _eventsRepository;
     //private readonly IPaymentAdapter _paymentAdapter;
-    private readonly ILocations _locations;
+    // private readonly ILocations _locations;
 
-    public EventOrganiserService(IEventsRepository eventsRepository, ILocations locations)
+    public EventOrganiserService(IEventsRepository eventsRepository)
     {
         _eventsRepository = eventsRepository;
-        _locations = locations;
+        // _locations = locations;
     }
 
     public CreateEventResponse CreateEvent(CreateEventRequest request, string requestOwnerEmail)
