@@ -74,31 +74,45 @@ public static class MapperExtensionMethods
         {
             Id = Guid.NewGuid(),
             Name = createEventRequest.Event.Name,
-            //Description = createEventRequest.Event.Des,
-            Price = createEventRequest.Event.Price ,
-            //LocationName = createEventRequest. ,
-            Date = createEventRequest.Event.EventDate,
+            Price = createEventRequest.Event.Price,
+            EventDate = createEventRequest.Event.EventDate,
             CurrentlySignedPlayers = createEventRequest.Event.CurrentlySignedPlayers,
             MaxPlayers = createEventRequest.Event.MaxPlayers,
-            //OwnerEmail = createEventRequest.,
-            //Status = createEventRequest.Event. ,
+            DescriptionForClients = new EventDescriptionForClient
+            {
+                TextDescription = createEventRequest.Event.ClientDescription
+            },
+            DescriptionForEmployees = new EventDescriptionForEmployee
+            {
+                TechnicalDescription = createEventRequest.Event.EmployeeDescription
+            },
+            Location = new Location()
+            {
+                Id = createEventRequest.Event.Location
+            },
+            Game = new Game()
+            {
+                Id = createEventRequest.Event.Game
+            }
         };
     }
 
-    public static Event MapToEvent(this UpdateEventRequest createEventRequest)
+    public static Event MapToEvent(this UpdateEventRequest updateEventRequest)
     {
         return new Event
         {
-            Id = Guid.NewGuid(),
-            Name = createEventRequest.Event.Name,
-            //Description = createEventRequest.Event.Des,
-            Price = createEventRequest.Event.Price,
-            //LocationName = createEventRequest. ,
-            Date = createEventRequest.Event.EventDate,
-            CurrentlySignedPlayers = createEventRequest.Event.CurrentlySignedPlayers,
-            MaxPlayers = createEventRequest.Event.MaxPlayers,
-            //OwnerEmail = createEventRequest.,
-            //Status = createEventRequest.Event. ,
+            Name = updateEventRequest.Event.Name,
+            DescriptionForClients = new EventDescriptionForClient
+            {
+                TextDescription = updateEventRequest.Event.ClientDescription
+            },
+            DescriptionForEmployees = new EventDescriptionForEmployee
+            {
+                TechnicalDescription = updateEventRequest.Event.EmployeeDescription
+            },
+            EventDate = updateEventRequest.Event.EventDate,
+            CurrentlySignedPlayers = updateEventRequest.Event.CurrentlySignedPlayers,
+            MaxPlayers = updateEventRequest.Event.MaxPlayers,
         };
     }
 
