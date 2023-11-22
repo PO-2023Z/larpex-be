@@ -1,4 +1,6 @@
-﻿using larpex_events.contracts.Contracts.Responses;
+﻿using System.Net.Http.Json;
+using larpex_events.contracts.Contracts.Requests;
+using larpex_events.contracts.Contracts.Responses;
 using larpex_events.Services.Interface;
 using larpex_payment_adapter.Domain;
 using larpex_payment_adapter.Services.Interface;
@@ -9,13 +11,16 @@ public class PaymentsAdapterService : IPaymentsAdapterService
 {
     private readonly IPaymentRepository _paymentRepository;
     private readonly IEventsRepository _eventsRepository;
-    
-    public PaymentsAdapterService(IPaymentRepository paymentRepository, IEventsRepository eventsRepository)
+    private readonly HttpClient _httpClient;
+
+    public PaymentsAdapterService(IPaymentRepository paymentRepository, IEventsRepository eventsRepository,
+        HttpClient httpClient)
     {
         _paymentRepository = paymentRepository;
         _eventsRepository = eventsRepository;
+        _httpClient = httpClient;
     }
-    
+
 
     public InitPayResponse? InitPayment(Guid eventId)
     {
@@ -25,24 +30,23 @@ public class PaymentsAdapterService : IPaymentsAdapterService
         {
             return null;
         }
-        
+
         // Create new payment entry in the db
         var payment = new Payment
         {
             EventId = eventId
         };
         var id = _paymentRepository.Add(payment);
-        
-        
+
+
         return new InitPayResponse()
         {
             PaymentId = id,
-            PaymentPrice = _eventsRepository.GetEventPrice(eventId)
+            PaymentPrice = _eventsRepository.Get(eventId).Price
         };
     }
-
-    // 
-    public string CreateTransaction(Guid paymentId, string userEmail, PaymentMethod method)
+    
+    public async Task<string> CreateTransaction(Guid paymentId, string userEmail, PaymentMethod method)
     {
         // Update the payment data in the db
         // (just assume that the paymentId is correct) (for now)
@@ -53,12 +57,29 @@ public class PaymentsAdapterService : IPaymentsAdapterService
             Method = method,
             Status = PaymentStatus.NotResolved
         };
-        _paymentRepository.Update(payment);
-        
-        
-        // register transaction with external-payments
-        // get the transaction id used for redirect link
-        throw new NotImplementedException();
+         _paymentRepository.Update(payment);
+
+
+        var redirectUrl = $"http://localhost:5173/payment-finalization/{paymentId}";
+        var apiUrl = "http://localhost:5172/api/external-payments/";
+
+        var transactionDetails = new TransactionDetailsRequest()
+        {
+            PaymentId = paymentId,
+            Email = userEmail,
+            Amount = (int) (_eventsRepository.Get(payment.EventId).Price * 100),
+            Method = method.ToString(),
+            UrlReturn = apiUrl,
+            UrlRedirect = redirectUrl
+        };
+
+        var result = await _httpClient.PostAsJsonAsync("Payments/registerTransaction", transactionDetails);
+        var transactionId = result.Content.ReadAsStringAsync().Result ?? throw new Exception("Error while creating transaction");
+
+
+        return "https://larpex-external-payments.azurewebsites.net/Payment?paymentId=" + transactionId;
+
+
     }
 
     public PaymentStatus CheckPaymentStatus(Guid paymentId)
@@ -66,9 +87,9 @@ public class PaymentsAdapterService : IPaymentsAdapterService
         return _paymentRepository.GetPaymentStatus(paymentId);
     }
 
-    public void ConfirmPayment(Guid paymentId)
+    public void ConfirmPayment(Guid paymentId, PaymentStatus paymentStatus)
     {
-        _paymentRepository.SetPaymentStatus(paymentId, PaymentStatus.Success);
+        _paymentRepository.SetPaymentStatus(paymentId, paymentStatus);
         var eventId = _paymentRepository.GetEventId(paymentId);
         _eventsRepository.SetPaymentStatus(eventId, true);
     }
