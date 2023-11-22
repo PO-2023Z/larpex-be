@@ -1,6 +1,5 @@
 **/obj/**
 **/bin/**
 **/packages/**
-/larpex-be/.vs/larpex-be
-/larpex-be/larpex-api-gateway
-*.user
+**/.vs/**
+**/.idea/

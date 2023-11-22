@@ -41,6 +41,26 @@ public static class TokenGenerator
         var tokenHandler = new JwtSecurityTokenHandler();
         var tokenJwt = tokenHandler.CreateToken(tokenDescriptor);
         var token = tokenHandler.WriteToken(tokenJwt);
+        
         return token;
+    }
+
+    public static string GetEmail(string token)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+    
+        try
+        {
+            var tokenS = tokenHandler.ReadToken(token) as JwtSecurityToken;
+
+            // Retrieve the email claim
+            var emailClaim = tokenS?.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.Email);
+            return emailClaim?.Value;
+        }
+        catch (Exception)
+        {
+            // Token decoding failed
+            return null;
+        }
     }
 }
