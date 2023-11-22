@@ -3,8 +3,11 @@
 public class CreateEventDTO
 {
     public string Name { get; set; }
-    public string EmployeeDescription { get; set; }
-    public string ClientDescription { get; set; }
+    public string? EmployeeDescription { get; set; }
+    public string? ClientDescription { get; set; }
+    public decimal Price { get; set; }
+    public int? CurrentlySignedPlayers { get; set; }
+    public int? MaxPlayers { get; set; }
     public Guid Location { get; set; }
     public Guid Game {  get; set; }
     public DateTime EventDate { get; set; }

@@ -6,4 +6,6 @@ public class UpdateEventDTO
     public string? EmployeeDescription { get; set; }
     public string? ClientDescription { get; set; }
     public DateTime? EventDate { get; set; }
+    public int? CurrentlySignedPlayers { get; set; }
+    public int? MaxPlayers { get; set; }
 }
