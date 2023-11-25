@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace larpex_events.Persistance;
 
-public partial class LarpexContext : DbContext
+public partial class LarpexdbContext : DbContext
 {
-    public LarpexContext()
+    public LarpexdbContext()
     {
     }
 
-    public LarpexContext(DbContextOptions<LarpexContext> options)
+    public LarpexdbContext(DbContextOptions<LarpexdbContext> options)
         : base(options)
     {
     }
@@ -33,11 +33,7 @@ public partial class LarpexContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<Userscredential> Userscredentials { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost;Database=Larpex;Username=postgres;Password=mysecretpassword;");
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Equipment>(entity =>
@@ -77,13 +73,21 @@ public partial class LarpexContext : DbContext
             entity.Property(e => e.Eventid)
                 .HasMaxLength(50)
                 .HasColumnName("eventid");
-            entity.Property(e => e.Description)
-                .HasMaxLength(50)
-                .HasColumnName("description");
-            entity.Property(e => e.Enddate).HasColumnName("enddate");
+            entity.Property(e => e.Descriptionforclients)
+                .HasMaxLength(1000)
+                .HasColumnName("descriptionforclients");
+            entity.Property(e => e.Descriptionforemployees)
+                .HasMaxLength(1000)
+                .HasColumnName("descriptionforemployees");
+            entity.Property(e => e.Enddate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("enddate");
             entity.Property(e => e.Eventname)
                 .HasMaxLength(50)
                 .HasColumnName("eventname");
+            entity.Property(e => e.Eventprice)
+                .HasColumnType("money")
+                .HasColumnName("eventprice");
             entity.Property(e => e.Eventstate)
                 .HasMaxLength(50)
                 .HasColumnName("eventstate");
@@ -93,6 +97,9 @@ public partial class LarpexContext : DbContext
             entity.Property(e => e.Icon)
                 .HasMaxLength(50)
                 .HasColumnName("icon");
+            entity.Property(e => e.Owneremail)
+                .HasMaxLength(50)
+                .HasColumnName("owneremail");
             entity.Property(e => e.Paidfor).HasColumnName("paidfor");
             entity.Property(e => e.Placeid)
                 .HasMaxLength(50)
@@ -100,7 +107,12 @@ public partial class LarpexContext : DbContext
             entity.Property(e => e.Priceperuser)
                 .HasColumnType("money")
                 .HasColumnName("priceperuser");
-            entity.Property(e => e.Startdate).HasColumnName("startdate");
+            entity.Property(e => e.Startdate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("startdate");
+            entity.Property(e => e.Technicaldescription)
+                .HasMaxLength(1000)
+                .HasColumnName("technicaldescription");
 
             entity.HasOne(d => d.Game).WithMany(p => p.Events)
                 .HasForeignKey(d => d.Gameid)
@@ -121,18 +133,18 @@ public partial class LarpexContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("gameid");
             entity.Property(e => e.Description)
-                .HasMaxLength(50)
+                .HasMaxLength(1000)
                 .HasColumnName("description");
             entity.Property(e => e.Difficulty).HasColumnName("difficulty");
             entity.Property(e => e.Gamename)
                 .HasMaxLength(50)
                 .HasColumnName("gamename");
             entity.Property(e => e.Map)
-                .HasMaxLength(50)
+                .HasMaxLength(1000)
                 .HasColumnName("map");
             entity.Property(e => e.Maximumplayer).HasColumnName("maximumplayer");
             entity.Property(e => e.Scenario)
-                .HasMaxLength(50)
+                .HasMaxLength(1000)
                 .HasColumnName("scenario");
         });
 
@@ -149,7 +161,7 @@ public partial class LarpexContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("gameid");
             entity.Property(e => e.Roledescription)
-                .HasMaxLength(50)
+                .HasMaxLength(1000)
                 .HasColumnName("roledescription");
             entity.Property(e => e.Rolename)
                 .HasMaxLength(50)
@@ -173,10 +185,10 @@ public partial class LarpexContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("gameid");
             entity.Property(e => e.Itemdescription)
-                .HasMaxLength(50)
+                .HasMaxLength(250)
                 .HasColumnName("itemdescription");
             entity.Property(e => e.Itemicon)
-                .HasMaxLength(50)
+                .HasMaxLength(150)
                 .HasColumnName("itemicon");
             entity.Property(e => e.Itemname)
                 .HasMaxLength(50)
@@ -208,7 +220,9 @@ public partial class LarpexContext : DbContext
             entity.Property(e => e.Paymentamount)
                 .HasColumnType("money")
                 .HasColumnName("paymentamount");
-            entity.Property(e => e.Paymentdate).HasColumnName("paymentdate");
+            entity.Property(e => e.Paymentdate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("paymentdate");
             entity.Property(e => e.Paymentstate)
                 .HasMaxLength(50)
                 .HasColumnName("paymentstate");
@@ -238,10 +252,10 @@ public partial class LarpexContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("placeid");
             entity.Property(e => e.Address)
-                .HasMaxLength(50)
+                .HasMaxLength(250)
                 .HasColumnName("address");
             entity.Property(e => e.Details)
-                .HasMaxLength(50)
+                .HasMaxLength(1000)
                 .HasColumnName("details");
             entity.Property(e => e.Priceperhour)
                 .HasColumnType("money")
@@ -294,7 +308,7 @@ public partial class LarpexContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("userid");
             entity.Property(e => e.Avatar)
-                .HasMaxLength(50)
+                .HasMaxLength(150)
                 .HasColumnName("avatar");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)

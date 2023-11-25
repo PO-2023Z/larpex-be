@@ -9,8 +9,9 @@ public class Event
     public string OwnerEmail { get; set; }
     public EventStatus Status { get; set; }
     public DateTime? EventDate { get; set; }
+    public DateTime? EndDate { get; set; }
     public int? CurrentlySignedPlayers { get; set; }
-    public int? MaxPlayers { get; set; }
+    public decimal PricePerUser { get; set; }
     public decimal Price { get; set; }
     public bool Paid { get; set; }
     public Game Game { get; set; }

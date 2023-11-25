@@ -8,11 +8,11 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="larpexdb@34.22.162.0" uuid="3405332d-f289-40e1-b8f8-ff2da07ca618">
+    <data-source source="LOCAL" name="larpexdb@34.88.138.104" uuid="3405332d-f289-40e1-b8f8-ff2da07ca618">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://34.22.162.0:5432/larpexdb</jdbc-url>
+      <jdbc-url>jdbc:postgresql://34.88.138.104:5432/larpexdb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

@@ -1,12 +1,12 @@
 ﻿namespace larpex_events.Persistance.DTOs;
 
-public partial class Payment
+public class Payment
 {
     public string Paymentid { get; set; } = null!;
 
     public string? Paymenttype { get; set; }
 
-    public TimeOnly? Paymentdate { get; set; }
+    public DateTime? Paymentdate { get; set; }
 
     public string? Paymentstate { get; set; }
 

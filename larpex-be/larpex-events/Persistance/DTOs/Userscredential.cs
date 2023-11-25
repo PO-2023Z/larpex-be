@@ -1,6 +1,6 @@
 ﻿namespace larpex_events.Persistance.DTOs;
 
-public partial class Userscredential
+public class Userscredential
 {
     public string Usercredentialid { get; set; } = null!;
 

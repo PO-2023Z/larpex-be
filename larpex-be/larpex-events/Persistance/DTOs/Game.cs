@@ -1,6 +1,6 @@
 ﻿namespace larpex_events.Persistance.DTOs;
 
-public partial class Game
+public class Game
 {
     public string Gameid { get; set; } = null!;
 

@@ -24,7 +24,7 @@ builder.Services.AddScoped<IEventsOrganiserService, EventOrganiserService>();
 builder.Services.AddScoped(sp => new HttpClient
     { BaseAddress = new Uri("https://larpex-external-payments.azurewebsites.net/api/") });
 
-builder.Services.AddDbContext<LarpexContext>(options => 
+builder.Services.AddDbContext<LarpexdbContext>(options => 
     options.UseNpgsql(builder.Configuration.GetConnectionString("LarpexContext")));
 
 var app = builder.Build();

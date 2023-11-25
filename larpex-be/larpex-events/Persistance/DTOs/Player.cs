@@ -2,7 +2,7 @@
 
 namespace larpex_events.Persistance.DTOs;
 
-public partial class Player
+public class Player
 {
     public string Playerid { get; set; } = null!;
 
