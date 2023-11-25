@@ -19,11 +19,23 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Persistance\DataTransferObjects\" />
+      <ProjectReference Include="..\larpex-events.contracts\larpex-events.contracts.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\larpex-events.contracts\larpex-events.contracts.csproj" />
+      <Compile Remove="Persistance\DataTransferObjects\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Persistance\DataTransferObjects\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Persistance\DataTransferObjects\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Persistance\DataTransferObjects\**" />
     </ItemGroup>
 
 </Project>
