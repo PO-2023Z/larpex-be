@@ -21,7 +21,9 @@ public class EventOrganiserService : IEventsOrganiserService
     {
         var eventObject = request.MapToEvent();
         eventObject.OwnerEmail = requestOwnerEmail;
-
+        eventObject.EventDate = eventObject.EventDate?.ToLocalTime();
+        eventObject.EndDate = eventObject.EndDate?.ToLocalTime();
+            
         _eventsRepository.Add(eventObject);
 
         return eventObject.MapToCreateEventResponse();

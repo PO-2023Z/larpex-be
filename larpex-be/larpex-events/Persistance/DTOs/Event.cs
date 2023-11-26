@@ -1,8 +1,11 @@
-﻿namespace larpex_events.Persistance.DTOs;
+﻿using System;
+using System.Collections.Generic;
 
-public class Event
+namespace larpex_events.Persistance.DTOs;
+
+public partial class Event
 {
-    public string Eventid { get; set; } = null!;
+    public Guid Eventid { get; set; }
 
     public string? Eventname { get; set; }
 
@@ -24,9 +27,9 @@ public class Event
 
     public bool? Paidfor { get; set; }
 
-    public string? Gameid { get; set; }
+    public Guid? Gameid { get; set; }
 
-    public string? Placeid { get; set; }
+    public Guid? Placeid { get; set; }
 
     public decimal? Eventprice { get; set; }
 

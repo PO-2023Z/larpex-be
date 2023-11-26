@@ -1,12 +1,15 @@
-﻿namespace larpex_events.Persistance.DTOs;
+﻿using System;
+using System.Collections.Generic;
 
-public class Userscredential
+namespace larpex_events.Persistance.DTOs;
+
+public partial class Userscredential
 {
-    public string Usercredentialid { get; set; } = null!;
+    public Guid Usercredentialid { get; set; }
 
     public string? Password { get; set; }
 
-    public string? Userid { get; set; }
+    public Guid? Userid { get; set; }
 
     public virtual User? User { get; set; }
 }
