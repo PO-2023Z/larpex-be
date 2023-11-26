@@ -80,7 +80,7 @@ public class EventsRepository : IEventsRepository
             DescriptionForClients = MapToEventDescriptionForClient(eventDto.Descriptionforclients, eventDto.Startdate),
             DescriptionForEmployees =
                 MapToEventDescriptionForEmployee(eventDto.Descriptionforemployees, eventDto.Technicaldescription, eventDto.Startdate),
-            Settings = MapToEventSettings(),
+            Settings = MapToEventSettings(eventDto.Isexternalorganiser ?? true, eventDto.Isvisible ?? false, eventDto.Maxplayerlimit ?? 50),
             
         };
     }
@@ -103,7 +103,10 @@ public class EventsRepository : IEventsRepository
             Descriptionforemployees = eventObject.DescriptionForEmployees.TextDescription,
             Technicaldescription = eventObject.DescriptionForEmployees.TechnicalDescription,
             Startdate = eventObject.EventDate,
-            Enddate = eventObject.EndDate
+            Enddate = eventObject.EndDate,
+            Maxplayerlimit = eventObject.Settings.MaxPlayerLimit,
+            Isvisible = eventObject.Settings.IsVisible,
+            Isexternalorganiser = eventObject.Settings.IsExternalOrganiser
         };
     }
 

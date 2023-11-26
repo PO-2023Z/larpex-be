@@ -38,8 +38,4 @@
       <None Remove="Persistance\DataTransferObjects\**" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Persistance\Models\" />
-    </ItemGroup>
-
 </Project>
