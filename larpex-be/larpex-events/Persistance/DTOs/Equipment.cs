@@ -1,14 +1,17 @@
-﻿namespace larpex_events.Persistance.DTOs;
+﻿using System;
+using System.Collections.Generic;
 
-public class Equipment
+namespace larpex_events.Persistance.DTOs;
+
+public partial class Equipment
 {
-    public string Equipmentid { get; set; } = null!;
+    public Guid Equipmentid { get; set; }
 
     public string? Itemstate { get; set; }
 
-    public string? Itemid { get; set; }
+    public Guid? Itemid { get; set; }
 
-    public string? Playerid { get; set; }
+    public Guid? Playerid { get; set; }
 
     public virtual Item? Item { get; set; }
 

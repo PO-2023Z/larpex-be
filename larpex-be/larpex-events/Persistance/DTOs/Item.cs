@@ -1,8 +1,11 @@
-﻿namespace larpex_events.Persistance.DTOs;
+﻿using System;
+using System.Collections.Generic;
 
-public class Item
+namespace larpex_events.Persistance.DTOs;
+
+public partial class Item
 {
-    public string Itemid { get; set; } = null!;
+    public Guid Itemid { get; set; }
 
     public string? Itemname { get; set; }
 
@@ -14,7 +17,7 @@ public class Item
 
     public string? Itemicon { get; set; }
 
-    public string? Gameid { get; set; }
+    public Guid? Gameid { get; set; }
 
     public virtual ICollection<Equipment> Equipment { get; set; } = new List<Equipment>();
 

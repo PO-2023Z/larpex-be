@@ -15,7 +15,7 @@ public class EventsRepository : IEventsRepository
 
     public void Remove(Guid eventId)
     {
-        var eventDto = _larpexContext.Events.FirstOrDefault(eventObj => eventObj.Eventid == eventId.ToString());
+        var eventDto = _larpexContext.Events.FirstOrDefault(eventObj => eventObj.Eventid == eventId);
         if (eventDto == null) return;
         _larpexContext.Events.Remove(eventDto);
         _larpexContext.SaveChanges();
@@ -37,7 +37,7 @@ public class EventsRepository : IEventsRepository
 
     public Event? Get(Guid eventId)
     {
-        var eventDto = _larpexContext.Events.FirstOrDefault(e => e.Eventid == eventId.ToString());
+        var eventDto = _larpexContext.Events.FirstOrDefault(e => e.Eventid == eventId);
         if (eventDto == null) return null;
 
         return MapToEvent(eventDto);
@@ -65,7 +65,7 @@ public class EventsRepository : IEventsRepository
         // Map Event object into Domain.Event object
         return new Event
         {
-            Id = new Guid(eventDto.Eventid),
+            Id = eventDto.Eventid,
             Name = eventDto.Eventname ?? "Event name missing",
             OwnerEmail = eventDto.Owneremail ?? "Owner email missing",
             Status = (EventStatus)Enum.Parse(typeof(EventStatus), eventDto.Eventstate ?? "Created"),
@@ -75,8 +75,8 @@ public class EventsRepository : IEventsRepository
             PricePerUser = eventDto.Priceperuser ?? 0,
             Price = eventDto.Eventprice ?? 0,
             Paid = eventDto.Paidfor ?? false,
-            Game = new Game { Id = eventDto.Gameid != null ? new Guid(eventDto.Gameid) : Guid.Empty },
-            Location = new Location { Id = eventDto.Placeid != null ? new Guid(eventDto.Placeid) : Guid.Empty },
+            Game = new Game { Id = eventDto.Gameid ?? Guid.Empty },
+            Location = new Location { Id = eventDto.Placeid ?? Guid.Empty },
             DescriptionForClients = MapToEventDescriptionForClient(eventDto.Descriptionforclients, eventDto.Startdate),
             DescriptionForEmployees =
                 MapToEventDescriptionForEmployee(eventDto.Descriptionforemployees, eventDto.Technicaldescription, eventDto.Startdate),
@@ -90,15 +90,15 @@ public class EventsRepository : IEventsRepository
         // Map Domain.Event object into Event object
         return new DTOs.Event
         {
-            Eventid = eventObject.Id.ToString(),
+            Eventid = eventObject.Id,
             Eventname = eventObject.Name,
             Owneremail = eventObject.OwnerEmail,
             Eventstate = eventObject.Status.ToString(),
             Priceperuser = eventObject.PricePerUser,
             Eventprice = eventObject.Price,
             Paidfor = eventObject.Paid,
-            Gameid = eventObject.Game.Id.ToString(),
-            Placeid = eventObject.Location.Id.ToString(),
+            Gameid = eventObject.Game.Id,
+            Placeid = eventObject.Location.Id,
             Descriptionforclients = eventObject.DescriptionForClients.TextDescription,
             Descriptionforemployees = eventObject.DescriptionForEmployees.TextDescription,
             Technicaldescription = eventObject.DescriptionForEmployees.TechnicalDescription,

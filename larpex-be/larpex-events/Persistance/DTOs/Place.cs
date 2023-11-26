@@ -1,8 +1,11 @@
-﻿namespace larpex_events.Persistance.DTOs;
+﻿using System;
+using System.Collections.Generic;
 
-public class Place
+namespace larpex_events.Persistance.DTOs;
+
+public partial class Place
 {
-    public string Placeid { get; set; } = null!;
+    public Guid Placeid { get; set; }
 
     public string? Address { get; set; }
 

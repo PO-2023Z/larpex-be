@@ -1,16 +1,18 @@
-﻿using NpgsqlTypes;
+﻿using System;
+using System.Collections.Generic;
+using NpgsqlTypes;
 
 namespace larpex_events.Persistance.DTOs;
 
-public class Player
+public partial class Player
 {
-    public string Playerid { get; set; } = null!;
+    public Guid Playerid { get; set; }
 
-    public string? Gameroleid { get; set; }
+    public Guid? Gameroleid { get; set; }
 
-    public string? Userid { get; set; }
+    public Guid? Userid { get; set; }
 
-    public string? Eventid { get; set; }
+    public Guid? Eventid { get; set; }
 
     public string? Nick { get; set; }
 

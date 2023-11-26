@@ -1,8 +1,11 @@
-﻿namespace larpex_events.Persistance.DTOs;
+﻿using System;
+using System.Collections.Generic;
 
-public class User
+namespace larpex_events.Persistance.DTOs;
+
+public partial class User
 {
-    public string Userid { get; set; } = null!;
+    public Guid Userid { get; set; }
 
     public string? Name { get; set; }
 
