@@ -35,6 +35,12 @@ public partial class Event
 
     public string? Owneremail { get; set; }
 
+    public int? Maxplayerlimit { get; set; }
+
+    public bool? Isvisible { get; set; }
+
+    public bool? Isexternalorganiser { get; set; }
+
     public virtual Game? Game { get; set; }
 
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();

@@ -95,6 +95,9 @@ public partial class LarpexdbContext : DbContext
             entity.Property(e => e.Icon)
                 .HasMaxLength(50)
                 .HasColumnName("icon");
+            entity.Property(e => e.Isexternalorganiser).HasColumnName("isexternalorganiser");
+            entity.Property(e => e.Isvisible).HasColumnName("isvisible");
+            entity.Property(e => e.Maxplayerlimit).HasColumnName("maxplayerlimit");
             entity.Property(e => e.Owneremail)
                 .HasMaxLength(50)
                 .HasColumnName("owneremail");
@@ -219,15 +222,18 @@ public partial class LarpexdbContext : DbContext
             entity.Property(e => e.Paymenttype)
                 .HasMaxLength(50)
                 .HasColumnName("paymenttype");
-            entity.Property(e => e.Userid).HasColumnName("userid");
+            entity.Property(e => e.UserEmail)
+                .HasMaxLength(50)
+                .HasColumnName("userEmail");
 
             entity.HasOne(d => d.Event).WithMany(p => p.Payments)
                 .HasForeignKey(d => d.Eventid)
                 .HasConstraintName("payments_eventid_fkey");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Payments)
-                .HasForeignKey(d => d.Userid)
-                .HasConstraintName("payments_userid_fkey");
+            entity.HasOne(d => d.UserEmailNavigation).WithMany(p => p.Payments)
+                .HasPrincipalKey(p => p.Email)
+                .HasForeignKey(d => d.UserEmail)
+                .HasConstraintName("payments_users_email_fk");
         });
 
         modelBuilder.Entity<Place>(entity =>
@@ -286,6 +292,8 @@ public partial class LarpexdbContext : DbContext
 
             entity.ToTable("users");
 
+            entity.HasIndex(e => e.Email, "users_pk").IsUnique();
+
             entity.Property(e => e.Userid)
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("userid");
@@ -312,11 +320,14 @@ public partial class LarpexdbContext : DbContext
             entity.Property(e => e.Password)
                 .HasMaxLength(50)
                 .HasColumnName("password");
-            entity.Property(e => e.Userid).HasColumnName("userid");
+            entity.Property(e => e.UserEmail)
+                .HasMaxLength(50)
+                .HasColumnName("userEmail");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Userscredentials)
-                .HasForeignKey(d => d.Userid)
-                .HasConstraintName("userscredential_userid_fkey");
+            entity.HasOne(d => d.UserEmailNavigation).WithMany(p => p.Userscredentials)
+                .HasPrincipalKey(p => p.Email)
+                .HasForeignKey(d => d.UserEmail)
+                .HasConstraintName("userscredential_users_email_fk");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -104,9 +104,9 @@ public class EventsRepository : IEventsRepository
             Technicaldescription = eventObject.DescriptionForEmployees.TechnicalDescription,
             Startdate = eventObject.EventDate,
             Enddate = eventObject.EndDate,
-            Maxplayerlimit = eventObject.Settings.MaxPlayerLimit,
-            Isvisible = eventObject.Settings.IsVisible,
-            Isexternalorganiser = eventObject.Settings.IsExternalOrganiser
+            Maxplayerlimit = eventObject.Settings?.MaxPlayerLimit,
+            Isvisible = eventObject.Settings?.IsVisible,
+            Isexternalorganiser = eventObject.Settings?.IsExternalOrganiser
         };
     }
 
