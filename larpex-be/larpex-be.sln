@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-payment-adapter", "l
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-api-gateway", "larpex-api-gateway\larpex-api-gateway.csproj", "{81D5C8E0-C3A5-4EA4-8354-E7326061EA71}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-events.contracts", "larpex-events.contracts\larpex-events.contracts.csproj", "{818987E7-02BF-4DAA-91BB-E622FEAFCE21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-contracts", "larpex-contracts\larpex-contracts.csproj", "{818987E7-02BF-4DAA-91BB-E622FEAFCE21}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "external-payments", "external-payments\external-payments.csproj", "{2060D85D-C473-46FF-A8A3-541D1A2C05C3}"
 EndProject

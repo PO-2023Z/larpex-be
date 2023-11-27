@@ -132,12 +132,7 @@ public class EventsRepository : IEventsRepository
             TechnicalDescription = technicalDescription ?? string.Empty
         };
     }
-
-    public decimal GetEventPrice(Guid eventId)
-    {
-        throw new NotImplementedException();
-    }
-
+    
     private EventSettings MapToEventSettings(bool isExternalOrganiser = true, bool isVisible = true, int maxPlayerLimit = 50)
     {
         return new EventSettings

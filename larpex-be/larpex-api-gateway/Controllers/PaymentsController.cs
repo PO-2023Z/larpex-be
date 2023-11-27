@@ -30,7 +30,7 @@ public class PaymentsController : ControllerBase
     }
 
     [HttpPost("create-transaction/")]
-    public async Task<ActionResult<string>> CreateTransaction(CreateTransactionRequest request)
+    public async Task<ActionResult<CreateTransactionResponse>> CreateTransaction(CreateTransactionRequest request)
     {
         string token = HttpContext.Request.Headers["Authorization"];
         if (string.IsNullOrWhiteSpace(token) || !token.StartsWith("Bearer "))
@@ -55,8 +55,8 @@ public class PaymentsController : ControllerBase
     }
 
     [HttpGet("{paymentId:guid}")]
-    public async Task<string> CheckPaymentStatus(Guid paymentId)
+    public async Task<PaymentStatusResponse> CheckPaymentStatus(Guid paymentId)
     {
-        return _paymentsAdapterService.CheckPaymentStatus(paymentId).ToString();
+        return _paymentsAdapterService.CheckPaymentStatus(paymentId);
     }
 }

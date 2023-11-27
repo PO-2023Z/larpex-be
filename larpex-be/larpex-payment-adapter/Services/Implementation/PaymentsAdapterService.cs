@@ -42,7 +42,7 @@ public class PaymentsAdapterService : IPaymentsAdapterService
         };
     }
     
-    public async Task<string> CreateTransaction(Guid paymentId, string userEmail, PaymentMethod method)
+    public async Task<CreateTransactionResponse> CreateTransaction(Guid paymentId, string userEmail, PaymentMethod method)
 
     {
         // Update the payment data in the db
@@ -63,6 +63,7 @@ public class PaymentsAdapterService : IPaymentsAdapterService
 
         var redirectUrl = $"https://localhost:7096/payment-finalization/{paymentId}";
         var apiUrl = $"https://larpex-api-gateway.azurewebsites.net/payments/confirm/{paymentId}";
+        // var apiUrl = $"https://localhost:44347/payments/confirm/{paymentId}";
 
 
         var transactionDetails = new TransactionDetailsRequest()
@@ -79,12 +80,18 @@ public class PaymentsAdapterService : IPaymentsAdapterService
         var transactionId = result.Content.ReadAsStringAsync().Result ?? throw new Exception("Error while creating transaction");
 
 
-        return "https://larpex-external-payments.azurewebsites.net/Payment?paymentId=" + transactionId;
+        return new CreateTransactionResponse()
+        {
+            RedirectUrl = "https://larpex-external-payments.azurewebsites.net/Payment?paymentId=" + transactionId
+        };
     }
 
-    public PaymentStatus CheckPaymentStatus(Guid paymentId)
+    public PaymentStatusResponse CheckPaymentStatus(Guid paymentId)
     {
-        return _paymentRepository.GetPaymentStatus(paymentId);
+        return new PaymentStatusResponse()
+        {
+            Status = _paymentRepository.GetPaymentStatus(paymentId).ToString()
+        };
     }
 
     public void ConfirmPayment(Guid paymentId, PaymentStatus paymentStatus)

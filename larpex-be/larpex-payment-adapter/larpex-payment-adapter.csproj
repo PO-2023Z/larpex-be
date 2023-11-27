@@ -9,7 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\larpex-db\larpex-db.csproj" />
-      <ProjectReference Include="..\larpex-events.contracts\larpex-events.contracts.csproj" />
+      <ProjectReference Include="..\larpex-contracts\larpex-contracts.csproj" />
       <ProjectReference Include="..\larpex-events\larpex-events.csproj" />
     </ItemGroup>
 
