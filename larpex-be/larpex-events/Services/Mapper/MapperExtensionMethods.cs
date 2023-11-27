@@ -19,7 +19,6 @@ public static class MapperExtensionMethods
             Location= eventObject.Location.Id,
             Date = eventObject.EventDate,
             CurrentlySignedPlayers = eventObject.CurrentlySignedPlayers,
-            MaxPlayers = eventObject.MaxPlayers,
         };
     }
 
@@ -77,7 +76,6 @@ public static class MapperExtensionMethods
             Price = createEventRequest.Event.Price,
             EventDate = createEventRequest.Event.EventDate,
             CurrentlySignedPlayers = createEventRequest.Event.CurrentlySignedPlayers,
-            MaxPlayers = createEventRequest.Event.MaxPlayers,
             DescriptionForClients = new EventDescriptionForClient
             {
                 TextDescription = createEventRequest.Event.ClientDescription
@@ -111,8 +109,7 @@ public static class MapperExtensionMethods
                 TechnicalDescription = updateEventRequest.Event.EmployeeDescription
             },
             EventDate = updateEventRequest.Event.EventDate,
-            CurrentlySignedPlayers = updateEventRequest.Event.CurrentlySignedPlayers,
-            MaxPlayers = updateEventRequest.Event.MaxPlayers,
+            CurrentlySignedPlayers = updateEventRequest.Event.CurrentlySignedPlayers
         };
     }
 

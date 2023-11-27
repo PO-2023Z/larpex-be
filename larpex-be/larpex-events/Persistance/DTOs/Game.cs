@@ -1,8 +1,11 @@
-﻿namespace larpex_events.Persistance.DTOs;
+﻿using System;
+using System.Collections.Generic;
+
+namespace larpex_events.Persistance.DTOs;
 
 public partial class Game
 {
-    public string Gameid { get; set; } = null!;
+    public Guid Gameid { get; set; }
 
     public string? Gamename { get; set; }
 

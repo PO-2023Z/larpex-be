@@ -1,12 +1,11 @@
-
-﻿using System.Net.Http.Json;
+using System.Net.Http.Json;
 using larpex_events.contracts.Contracts.Requests;
 using larpex_events.contracts.Contracts.Responses;
 using larpex_events.Services.Interface;
 using larpex_payment_adapter.Domain;
 using larpex_payment_adapter.Services.Interface;
 
-namespace larpex_payment_adapter.Services.Implementation;
+ namespace larpex_payment_adapter.Services.Implementation;
 
 public class PaymentsAdapterService : IPaymentsAdapterService
 {

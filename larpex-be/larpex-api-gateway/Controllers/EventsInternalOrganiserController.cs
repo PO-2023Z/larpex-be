@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace larpex_api_gateway.Controllers;
 
+//TODO: Authorize
 [ApiController]
 [Route("[controller]")]
 public class EventsInternalOrganiserController : ControllerBase
