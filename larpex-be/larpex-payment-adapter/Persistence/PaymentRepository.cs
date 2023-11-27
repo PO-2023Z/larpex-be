@@ -38,6 +38,8 @@ public class PaymentRepository : IPaymentRepository
         paymentToUpdate.Paymentstate = payment.Status.ToString() ?? paymentToUpdate.Paymentstate;
         paymentToUpdate.Paymenttype = payment.Method.ToString() ?? paymentToUpdate.Paymenttype;
 
+        _context.Update(paymentToUpdate);
+
         _context.SaveChanges();
 
         return;
@@ -48,6 +50,8 @@ public class PaymentRepository : IPaymentRepository
         var paymentToUpdate = _context.Payments.FirstOrDefault(p => p.Paymentid == paymentId);
 
         paymentToUpdate!.Paymentstate = status.ToString();
+
+        _context.Update(paymentToUpdate);
 
         _context.SaveChanges();
 
