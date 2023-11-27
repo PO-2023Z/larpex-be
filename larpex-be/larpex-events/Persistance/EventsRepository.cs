@@ -31,9 +31,9 @@ public class EventsRepository : IEventsRepository
 
     public void Add(Event eventObject)
     {
-        //var eventDto = MapToEventDTO(eventObject);
-        //_larpexContext.Events.Add(eventDto);
-        //_larpexContext.SaveChanges();
+        var eventDto = MapToEventDTO(eventObject);
+        _larpexContext.Events.Add(eventDto);
+        _larpexContext.SaveChanges();
     }
 
     public Event? Get(Guid eventId)
@@ -46,20 +46,19 @@ public class EventsRepository : IEventsRepository
 
     public List<Event> GetAll()
     {
-        return new List<Event>();
-        //var eventDtos = _larpexContext.Events.ToList();
-        //var events = new List<Event>();
-        //
-        //foreach (var eventDto in eventDtos) events.Add(MapToEvent(eventDto));
-        //
-        //return events;
+        var eventDtos = _larpexContext.Events.ToList();
+        var events = new List<Event>();
+        
+        foreach (var eventDto in eventDtos) events.Add(MapToEvent(eventDto));
+        
+        return events;
     }
 
     public void Update(Event eventObject)
     {
-        //var eventDto = MapToEventDTO(eventObject);
-        //_larpexContext.Events.Update(eventDto);
-        //_larpexContext.SaveChanges();
+        var eventDto = MapToEventDTO(eventObject);
+        _larpexContext.Events.Update(eventDto);
+        _larpexContext.SaveChanges();
     }
 
     private Event MapToEvent(larpex_db.Models.Event eventDto)
@@ -82,15 +81,15 @@ public class EventsRepository : IEventsRepository
             DescriptionForClients = MapToEventDescriptionForClient(eventDto.Descriptionforclients, eventDto.Startdate),
             DescriptionForEmployees =
                 MapToEventDescriptionForEmployee(eventDto.Descriptionforemployees, eventDto.Technicaldescription, eventDto.Startdate),
-            //Settings = MapToEventSettings(eventDto.Isexternalorganiser ?? true, eventDto.Isvisible ?? false, eventDto.Maxplayerlimit ?? 50),
+            Settings = MapToEventSettings(eventDto.Isexternalorganiser ?? true, eventDto.Isvisible ?? false, eventDto.Maxplayerlimit ?? 50),
             
         };
     }
 
-    private DTOs.Event MapToEventDTO(Event eventObject)
+    private larpex_db.Models.Event MapToEventDTO(Event eventObject)
     {
         // Map Domain.Event object into Event object
-        return new DTOs.Event
+        return new larpex_db.Models.Event
         {
             Eventid = eventObject.Id,
             Eventname = eventObject.Name,
@@ -106,9 +105,9 @@ public class EventsRepository : IEventsRepository
             Technicaldescription = eventObject.DescriptionForEmployees.TechnicalDescription,
             Startdate = eventObject.EventDate,
             Enddate = eventObject.EndDate,
-            //Maxplayerlimit = eventObject.Settings.MaxPlayerLimit,
-            //Isvisible = eventObject.Settings.IsVisible,
-            //Isexternalorganiser = eventObject.Settings.IsExternalOrganiser
+            Maxplayerlimit = eventObject.Settings.MaxPlayerLimit,
+            Isvisible = eventObject.Settings.IsVisible,
+            Isexternalorganiser = eventObject.Settings.IsExternalOrganiser
         };
     }
 
