@@ -4,11 +4,12 @@ using larpex_payment_adapter.Persistence;
 using larpex_payment_adapter.Services.Implementation;
 using larpex_payment_adapter.Services.Interface;
 
-using larpex_events.Persistance;
 using larpex_events.Services.Implementation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+
+using larpex_db;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,7 +56,7 @@ builder.Services.AddScoped<IEventsOrganiserService, EventOrganiserService>();
 builder.Services.AddScoped(sp => new HttpClient
     { BaseAddress = new Uri("https://larpex-external-payments.azurewebsites.net/api/") });
 
-builder.Services.AddDbContext<LarpexdbContext>(options =>
+builder.Services.AddDbContext<larpex_db.LarpexdbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("LarpexContext"));
 });
