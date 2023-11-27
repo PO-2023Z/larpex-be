@@ -1,8 +1,8 @@
-﻿namespace larpex_events.Domain.Enums;
+namespace larpex_events.Domain.Enums;
 
 public enum PaymentStatus
 {
-    NotStarted,
+    NotResolved,
     Success,
     Failure
 }
