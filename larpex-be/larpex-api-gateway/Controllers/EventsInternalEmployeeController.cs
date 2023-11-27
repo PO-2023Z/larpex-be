@@ -22,13 +22,13 @@ public class EventsInternalEmployeeController : ControllerBase
         return _eventsService.GetEvents();
     }
 
-    [HttpGet("{eventStatus}")]
+    [HttpGet("status/{status}")]
     public async Task<GetEventsResponse> GetEventsByStatus(EventStatus status)
     {
         return _eventsService.GetEventsByStatus(status);
     }
 
-    [HttpGet("{ownerEmail}")]
+    [HttpGet("email/{ownerEmail}")]
     public async Task<GetEventsResponse> GetEventsByStatus(string ownerEmail)
     {
         return _eventsService.GetEventsByOwner(ownerEmail);
