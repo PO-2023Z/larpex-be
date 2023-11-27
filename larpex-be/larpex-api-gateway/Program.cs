@@ -3,12 +3,11 @@ using larpex_events.Services.Interface;
 using larpex_payment_adapter.Persistence;
 using larpex_payment_adapter.Services.Implementation;
 using larpex_payment_adapter.Services.Interface;
-
-using larpex_events.Persistance;
 using larpex_events.Services.Implementation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using larpex_db;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,17 +16,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen( c => {
-    c.SwaggerDoc("v1", new OpenApiInfo() { Title = "LarpexAPI", Version = "v1"});
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo() { Title = "LarpexAPI", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = @"JWT Authorization header using the Bearer scheme. <br/><br/> Enter 'Bearer' [space] and then your token in the text input <br/><br/> Example: Bearer 1232131231fdsf",
+        Description = @"JWT Authorization header using the Bearer scheme. <br/><br/> 
+            Enter 'Bearer' [space] and then your token in the text input <br/><br/> Example: Bearer [token]",
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
     });
-    
+
     c.AddSecurityRequirement(new OpenApiSecurityRequirement()
     {
         {
@@ -42,9 +43,9 @@ builder.Services.AddSwaggerGen( c => {
                 Name = "Bearer",
                 In = ParameterLocation.Header,
             },
-            new List<String>()    
+            new List<String>()
         }
-    }); 
+    });
 });
 
 builder.Services.AddScoped<IPaymentsAdapterService, PaymentsAdapterService>();
@@ -55,25 +56,23 @@ builder.Services.AddScoped<IEventsOrganiserService, EventOrganiserService>();
 builder.Services.AddScoped(sp => new HttpClient
     { BaseAddress = new Uri("https://larpex-external-payments.azurewebsites.net/api/") });
 
-builder.Services.AddDbContext<LarpexdbContext>(options =>
+builder.Services.AddDbContext<larpex_db.LarpexdbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("LarpexContext"));
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
 var app = builder.Build();
-app.UseCors(corsPolicyBuilder => 
+app.UseCors(corsPolicyBuilder =>
     corsPolicyBuilder
-    .AllowAnyOrigin()
-    .AllowAnyHeader()
-    .AllowAnyMethod());
+        .AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod());
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 

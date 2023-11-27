@@ -2,7 +2,7 @@
 
 public enum PaymentStatus
 {
-    NotStarted,
+    NotResolved,
     Success,
     Failure
 }

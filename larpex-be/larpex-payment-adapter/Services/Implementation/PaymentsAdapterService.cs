@@ -42,29 +42,35 @@ public class PaymentsAdapterService : IPaymentsAdapterService
         };
     }
     
-    public async Task<string> CreateTransaction(Guid paymentId, string userEmail, PaymentMethod method)
+    public async Task<CreateTransactionResponse> CreateTransaction(Guid paymentId, string userEmail, PaymentMethod method)
 
     {
         // Update the payment data in the db
         // (just assume that the paymentId is correct) (for now)
+        var eventId = _paymentRepository.GetEventId(paymentId);
+        var event_ = _eventsRepository.Get(eventId);
+
         var payment = new Payment()
         {
             Id = paymentId,
             UserEmail = userEmail,
             Method = method,
-            Status = PaymentStatus.NotResolved
+            Status = PaymentStatus.NotResolved,
+            Amount = event_.EventPrice,
         };
          _paymentRepository.Update(payment);
 
 
-        var redirectUrl = $"http://localhost:5173/payment-finalization/{paymentId}";
-        var apiUrl = "http://localhost:5172/api/external-payments/";
+        var redirectUrl = $"https://localhost:7096/payment-finalization/{paymentId}";
+        var apiUrl = $"https://larpex-api-gateway.azurewebsites.net/payments/confirm/{paymentId}";
+        // var apiUrl = $"https://localhost:44347/payments/confirm/{paymentId}";
+
 
         var transactionDetails = new TransactionDetailsRequest()
         {
             PaymentId = paymentId,
             Email = userEmail,
-            Amount = (int) (_eventsRepository.Get(payment.EventId).EventPrice * 100),
+            Amount = (int) (event_.EventPrice * 100),
             Method = method.ToString(),
             UrlReturn = apiUrl,
             UrlRedirect = redirectUrl
@@ -74,12 +80,18 @@ public class PaymentsAdapterService : IPaymentsAdapterService
         var transactionId = result.Content.ReadAsStringAsync().Result ?? throw new Exception("Error while creating transaction");
 
 
-        return "https://larpex-external-payments.azurewebsites.net/Payment?paymentId=" + transactionId;
+        return new CreateTransactionResponse()
+        {
+            RedirectUrl = "https://larpex-external-payments.azurewebsites.net/Payment?paymentId=" + transactionId
+        };
     }
 
-    public PaymentStatus CheckPaymentStatus(Guid paymentId)
+    public PaymentStatusResponse CheckPaymentStatus(Guid paymentId)
     {
-        return _paymentRepository.GetPaymentStatus(paymentId);
+        return new PaymentStatusResponse()
+        {
+            Status = _paymentRepository.GetPaymentStatus(paymentId).ToString()
+        };
     }
 
     public void ConfirmPayment(Guid paymentId, PaymentStatus paymentStatus)

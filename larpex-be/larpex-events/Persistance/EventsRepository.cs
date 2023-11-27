@@ -1,6 +1,7 @@
 ﻿using larpex_events.Domain;
 using larpex_events.Domain.Enums;
 using larpex_events.Services.Interface;
+using larpex_db;
 
 namespace larpex_events.Persistance;
 
@@ -39,7 +40,7 @@ public class EventsRepository : IEventsRepository
     {
         var eventDto = _larpexContext.Events.FirstOrDefault(e => e.Eventid == eventId);
         if (eventDto == null) return null;
-
+        
         return MapToEvent(eventDto);
     }
 
@@ -47,9 +48,9 @@ public class EventsRepository : IEventsRepository
     {
         var eventDtos = _larpexContext.Events.ToList();
         var events = new List<Event>();
-
+        
         foreach (var eventDto in eventDtos) events.Add(MapToEvent(eventDto));
-
+        
         return events;
     }
 
@@ -60,7 +61,7 @@ public class EventsRepository : IEventsRepository
         _larpexContext.SaveChanges();
     }
 
-    private Event MapToEvent(DTOs.Event eventDto)
+    private Event MapToEvent(larpex_db.Models.Event eventDto)
     {
         // Map Event object into Domain.Event object
         return new Event
@@ -84,10 +85,10 @@ public class EventsRepository : IEventsRepository
         };
     }
 
-    private DTOs.Event MapToEventDTO(Event eventObject)
+    private larpex_db.Models.Event MapToEventDTO(Event eventObject)
     {
         // Map Domain.Event object into Event object
-        return new DTOs.Event
+        return new larpex_db.Models.Event
         {
             Eventid = eventObject.Id,
             Eventname = eventObject.Name,
@@ -130,12 +131,7 @@ public class EventsRepository : IEventsRepository
             TechnicalDescription = technicalDescription ?? string.Empty
         };
     }
-
-    public decimal GetEventPrice(Guid eventId)
-    {
-        throw new NotImplementedException();
-    }
-
+    
     private EventSettings MapToEventSettings(bool isExternalOrganiser = true, bool isVisible = true, int maxPlayerLimit = 50)
     {
         return new EventSettings

@@ -18,19 +18,19 @@ public class PaymentsController : ControllerBase
     {
         _paymentsAdapterService = paymentsAdapterService;
     }
-    
-    
+
+
     [HttpPost("init/")]
     public async Task<ActionResult<InitPayResponse>> InitPayment(Guid eventId)
     {
-        
+
         var resp = _paymentsAdapterService.InitPayment(eventId);
         if (resp == null) return NotFound();
         return resp;
     }
-    
+
     [HttpPost("create-transaction/")]
-    public async Task<ActionResult<string>> CreateTransaction(CreateTransactionRequest request)
+    public async Task<ActionResult<CreateTransactionResponse>> CreateTransaction(CreateTransactionRequest request)
     {
         string token = HttpContext.Request.Headers["Authorization"];
         if (string.IsNullOrWhiteSpace(token) || !token.StartsWith("Bearer "))
@@ -38,21 +38,25 @@ public class PaymentsController : ControllerBase
             return Unauthorized("Invalid token");
         }
         var email = TokenGenerator.GetEmail(token.Substring("Bearer ".Length));
-        
+
         Enum.TryParse(request.Method, out PaymentMethod method);
         return await _paymentsAdapterService.CreateTransaction(request.PaymentId, email, method);
     }
-    
+
     [HttpPost("confirm/{paymentId:guid}")]
-    public async Task ConfirmPayment(Guid paymentId, [FromQuery] string status)
+    public async Task ConfirmPayment(Guid paymentId, [FromQuery] string success)
     {
-        Enum.TryParse(status, out PaymentStatus paymentStatus);
+        PaymentStatus paymentStatus = PaymentStatus.Failure;
+        if (success == "true")
+        {
+            paymentStatus = PaymentStatus.Success;
+        }
         _paymentsAdapterService.ConfirmPayment(paymentId, paymentStatus);
     }
 
     [HttpGet("{paymentId:guid}")]
-    public async Task<string> CheckPaymentStatus(Guid paymentId)
+    public async Task<PaymentStatusResponse> CheckPaymentStatus(Guid paymentId)
     {
-        return _paymentsAdapterService.CheckPaymentStatus(paymentId).ToString();
+        return _paymentsAdapterService.CheckPaymentStatus(paymentId);
     }
 }

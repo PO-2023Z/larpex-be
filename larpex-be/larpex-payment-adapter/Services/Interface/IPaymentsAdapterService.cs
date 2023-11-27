@@ -6,7 +6,7 @@ namespace larpex_payment_adapter.Services.Interface;
 public interface IPaymentsAdapterService
 {
     InitPayResponse? InitPayment(Guid eventId);
-    Task<string> CreateTransaction(Guid paymentId, string userEmail, PaymentMethod method);
+    Task<CreateTransactionResponse> CreateTransaction(Guid paymentId, string userEmail, PaymentMethod method);
     void ConfirmPayment(Guid paymentId, PaymentStatus paymentStatus);
-    PaymentStatus CheckPaymentStatus(Guid paymentId);
+    PaymentStatusResponse CheckPaymentStatus(Guid paymentId);
 }
