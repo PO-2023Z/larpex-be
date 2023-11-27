@@ -6,10 +6,14 @@ public class EventDTO
     public string Name { get; set; }
     public string DescriptionForClient { get; set; }
     public string DescriptionForEmployee { get; set; }
-    public decimal Price { get; set; }
+    public string OwnerEmail { get; set; }
+    public decimal PricePerUser { get; set; }
+    public decimal EventPrice { get; set; }
     public Guid Location { get; set; }
-    public DateTime? Date { get; set; }
-    //public EventStatus Status { get; set; }
+    public Guid Game { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
     public int? CurrentlySignedPlayers { get; set; }
-    public int? MaxPlayers { get; set; }
+    public string EventStatus { get; set; }
+    public EventSettingsDTO EventSettings { get; set; }
 }

@@ -69,11 +69,11 @@ public class EventsRepository : IEventsRepository
             Name = eventDto.Eventname ?? "Event name missing",
             OwnerEmail = eventDto.Owneremail ?? "Owner email missing",
             Status = (EventStatus)Enum.Parse(typeof(EventStatus), eventDto.Eventstate ?? "Created"),
-            EventDate = eventDto.Startdate ?? DateTime.Now,
+            StartDate = eventDto.Startdate ?? DateTime.Now,
             EndDate = eventDto.Enddate ?? DateTime.Now,
             CurrentlySignedPlayers = eventDto.Players.Count,
             PricePerUser = eventDto.Priceperuser ?? 0,
-            Price = eventDto.Eventprice ?? 0,
+            EventPrice = eventDto.Eventprice ?? 0,
             Paid = eventDto.Paidfor ?? false,
             Game = new Game { Id = eventDto.Gameid ?? Guid.Empty },
             Location = new Location { Id = eventDto.Placeid ?? Guid.Empty },
@@ -81,7 +81,6 @@ public class EventsRepository : IEventsRepository
             DescriptionForEmployees =
                 MapToEventDescriptionForEmployee(eventDto.Descriptionforemployees, eventDto.Technicaldescription, eventDto.Startdate),
             Settings = MapToEventSettings(eventDto.Isexternalorganiser ?? true, eventDto.Isvisible ?? false, eventDto.Maxplayerlimit ?? 50),
-            
         };
     }
 
@@ -95,18 +94,18 @@ public class EventsRepository : IEventsRepository
             Owneremail = eventObject.OwnerEmail,
             Eventstate = eventObject.Status.ToString(),
             Priceperuser = eventObject.PricePerUser,
-            Eventprice = eventObject.Price,
+            Eventprice = eventObject.EventPrice,
             Paidfor = eventObject.Paid,
             Gameid = eventObject.Game.Id,
             Placeid = eventObject.Location.Id,
             Descriptionforclients = eventObject.DescriptionForClients.TextDescription,
             Descriptionforemployees = eventObject.DescriptionForEmployees.TextDescription,
             Technicaldescription = eventObject.DescriptionForEmployees.TechnicalDescription,
-            Startdate = eventObject.EventDate,
+            Startdate = eventObject.StartDate,
             Enddate = eventObject.EndDate,
-            Maxplayerlimit = eventObject.Settings.MaxPlayerLimit,
-            Isvisible = eventObject.Settings.IsVisible,
-            Isexternalorganiser = eventObject.Settings.IsExternalOrganiser
+            Maxplayerlimit = eventObject.Settings?.MaxPlayerLimit,
+            Isvisible = eventObject.Settings?.IsVisible,
+            Isexternalorganiser = eventObject.Settings?.IsExternalOrganiser
         };
     }
 
