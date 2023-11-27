@@ -38,7 +38,7 @@ public class PaymentsAdapterService : IPaymentsAdapterService
         return new InitPayResponse()
         {
             PaymentId = id,
-            PaymentPrice = _eventsRepository.Get(eventId).Price
+            PaymentPrice = _eventsRepository.Get(eventId).EventPrice
         };
     }
     
@@ -56,7 +56,7 @@ public class PaymentsAdapterService : IPaymentsAdapterService
             UserEmail = userEmail,
             Method = method,
             Status = PaymentStatus.NotResolved,
-            Amount = event_.Price,
+            Amount = event_.EventPrice,
         };
          _paymentRepository.Update(payment);
 
@@ -70,7 +70,7 @@ public class PaymentsAdapterService : IPaymentsAdapterService
         {
             PaymentId = paymentId,
             Email = userEmail,
-            Amount = (int) (event_.Price * 100),
+            Amount = (int) (event_.EventPrice * 100),
             Method = method.ToString(),
             UrlReturn = apiUrl,
             UrlRedirect = redirectUrl

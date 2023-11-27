@@ -1,4 +1,5 @@
-﻿using larpex_events.contracts.Contracts.Requests;
+﻿using larpex_auth;
+using larpex_events.contracts.Contracts.Requests;
 using larpex_events.contracts.Contracts.Responses;
 using larpex_events.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
@@ -18,38 +19,80 @@ public class EventsInternalOrganiserController : ControllerBase
     }
 
     [HttpGet()]
-    public async Task<GetEventsResponse> GetEvents()
+    public async Task<ActionResult<GetEventsResponse>> GetEvents()
     {
-        return _eventsService.GetEvents("email?");
+        string token = HttpContext.Request.Headers["Authorization"];
+        if (string.IsNullOrWhiteSpace(token) || !token.StartsWith("Bearer "))
+        {
+            return Unauthorized("Invalid token");
+        }
+        var email = TokenGenerator.GetEmail(token.Substring("Bearer ".Length));
+
+        return _eventsService.GetEvents(email);
     }
 
     [HttpPost()]
-    public async Task<CreateEventResponse> CreateEvent(CreateEventRequest request)
+    public async Task<ActionResult<CreateEventResponse>> CreateEvent(CreateEventRequest request)
     {
-        return _eventsService.CreateEvent(request, "email?");
+        string token = HttpContext.Request.Headers["Authorization"];
+        if (string.IsNullOrWhiteSpace(token) || !token.StartsWith("Bearer "))
+        {
+            return Unauthorized("Invalid token");
+        }
+        var email = TokenGenerator.GetEmail(token.Substring("Bearer ".Length));
+
+        return _eventsService.CreateEvent(request, email);
     }
 
     [HttpGet("{eventId}")]
-    public async Task<ReadEventResponse> ReadEvent(Guid eventId)
+    public async Task<ActionResult<ReadEventResponse>> ReadEvent(Guid eventId)
     {
-        return _eventsService.ReadEvent(eventId, "email?");
+        string token = HttpContext.Request.Headers["Authorization"];
+        if (string.IsNullOrWhiteSpace(token) || !token.StartsWith("Bearer "))
+        {
+            return Unauthorized("Invalid token");
+        }
+        var email = TokenGenerator.GetEmail(token.Substring("Bearer ".Length));
+
+        return _eventsService.ReadEvent(eventId, email);
     }
 
     [HttpPut("settings/{eventId}")]
-    public async Task<UpdateEventSettingsResponse> UpdateEventSettings(Guid eventId, UpdateEventSettingsRequest request)
+    public async Task<ActionResult<UpdateEventSettingsResponse>> UpdateEventSettings(Guid eventId, UpdateEventSettingsRequest request)
     {
-        return _eventsService.UpdateEventSettings(eventId, request, "email?");
+        string token = HttpContext.Request.Headers["Authorization"];
+        if (string.IsNullOrWhiteSpace(token) || !token.StartsWith("Bearer "))
+        {
+            return Unauthorized("Invalid token");
+        }
+        var email = TokenGenerator.GetEmail(token.Substring("Bearer ".Length));
+
+        return _eventsService.UpdateEventSettings(eventId, request, email);
     }
 
     [HttpPut("{eventId}")]
-    public async Task<UpdateEventResponse> UpdateEvent(Guid eventId, UpdateEventRequest request)
+    public async Task<ActionResult<UpdateEventResponse>> UpdateEvent(Guid eventId, UpdateEventRequest request)
     {
-        return _eventsService.UpdateEvent(eventId, request, "email?");
+        string token = HttpContext.Request.Headers["Authorization"];
+        if (string.IsNullOrWhiteSpace(token) || !token.StartsWith("Bearer "))
+        {
+            return Unauthorized("Invalid token");
+        }
+        var email = TokenGenerator.GetEmail(token.Substring("Bearer ".Length));
+
+        return _eventsService.UpdateEvent(eventId, request, email);
     }
 
     [HttpDelete("{eventId}")]
     public async Task UpdateEvent(Guid eventId)
     {
-        _eventsService.DeleteEvent(eventId, "email?");
+        string token = HttpContext.Request.Headers["Authorization"];
+        if (string.IsNullOrWhiteSpace(token) || !token.StartsWith("Bearer "))
+        {
+            throw new  UnauthorizedAccessException("Invalid token");
+        }
+        var email = TokenGenerator.GetEmail(token.Substring("Bearer ".Length));
+
+        _eventsService.DeleteEvent(eventId, email);
     }
 }

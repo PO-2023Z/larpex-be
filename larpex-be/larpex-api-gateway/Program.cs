@@ -59,6 +59,7 @@ builder.Services.AddScoped(sp => new HttpClient
 builder.Services.AddDbContext<larpex_db.LarpexdbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("LarpexContext"));
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
 var app = builder.Build();
