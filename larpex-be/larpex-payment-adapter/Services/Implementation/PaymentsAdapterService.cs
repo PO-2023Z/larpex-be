@@ -47,24 +47,29 @@ public class PaymentsAdapterService : IPaymentsAdapterService
     {
         // Update the payment data in the db
         // (just assume that the paymentId is correct) (for now)
+        var eventId = _paymentRepository.GetEventId(paymentId);
+        var event_ = _eventsRepository.Get(eventId);
+
         var payment = new Payment()
         {
             Id = paymentId,
             UserEmail = userEmail,
             Method = method,
-            Status = PaymentStatus.NotResolved
+            Status = PaymentStatus.NotResolved,
+            Amount = event_.Price,
         };
          _paymentRepository.Update(payment);
 
 
-        var redirectUrl = $"http://localhost:5173/payment-finalization/{paymentId}";
-        var apiUrl = "http://localhost:5172/api/external-payments/";
+        var redirectUrl = $"https://localhost:7096/payment-finalization/{paymentId}";
+        var apiUrl = $"https://larpex-api-gateway.azurewebsites.net/payments/confirm/{paymentId}";
+
 
         var transactionDetails = new TransactionDetailsRequest()
         {
             PaymentId = paymentId,
             Email = userEmail,
-            Amount = (int) (_eventsRepository.Get(payment.EventId).Price * 100),
+            Amount = (int) (event_.Price * 100),
             Method = method.ToString(),
             UrlReturn = apiUrl,
             UrlRedirect = redirectUrl

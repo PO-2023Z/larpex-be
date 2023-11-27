@@ -18,8 +18,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen( c => {
-    c.SwaggerDoc("v1", new OpenApiInfo() { Title = "LarpexAPI", Version = "v1"});
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo() { Title = "LarpexAPI", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = @"JWT Authorization header using the Bearer scheme. <br/><br/> Enter 'Bearer' [space] and then your token in the text input <br/><br/> Example: Bearer 1232131231fdsf",
@@ -28,7 +29,7 @@ builder.Services.AddSwaggerGen( c => {
         Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
     });
-    
+
     c.AddSecurityRequirement(new OpenApiSecurityRequirement()
     {
         {
@@ -43,9 +44,9 @@ builder.Services.AddSwaggerGen( c => {
                 Name = "Bearer",
                 In = ParameterLocation.Header,
             },
-            new List<String>()    
+            new List<String>()
         }
-    }); 
+    });
 });
 
 builder.Services.AddScoped<IPaymentsAdapterService, PaymentsAdapterService>();
@@ -54,7 +55,7 @@ builder.Services.AddScoped<IEventsRepository, EventsRepository>();
 builder.Services.AddScoped<IEventsEmployeeService, EventEmployeeService>();
 builder.Services.AddScoped<IEventsOrganiserService, EventOrganiserService>();
 builder.Services.AddScoped(sp => new HttpClient
-    { BaseAddress = new Uri("https://larpex-external-payments.azurewebsites.net/api/") });
+{ BaseAddress = new Uri("https://larpex-external-payments.azurewebsites.net/api/") });
 
 builder.Services.AddDbContext<larpex_db.LarpexdbContext>(options =>
 {
@@ -62,18 +63,16 @@ builder.Services.AddDbContext<larpex_db.LarpexdbContext>(options =>
 });
 
 var app = builder.Build();
-app.UseCors(corsPolicyBuilder => 
+app.UseCors(corsPolicyBuilder =>
     corsPolicyBuilder
     .AllowAnyOrigin()
     .AllowAnyHeader()
     .AllowAnyMethod());
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 

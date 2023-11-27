@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 namespace larpex_db.Models;
+
 public partial class Game
 {
     public Guid Gameid { get; set; }

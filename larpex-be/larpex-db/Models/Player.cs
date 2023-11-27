@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using larpex_db.Models;
 using NpgsqlTypes;
 
 namespace larpex_db.Models;

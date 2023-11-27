@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 namespace larpex_db.Models;
+
 public partial class Event
 {
     public Guid Eventid { get; set; }
@@ -33,6 +34,12 @@ public partial class Event
     public decimal? Eventprice { get; set; }
 
     public string? Owneremail { get; set; }
+
+    public int? Maxplayerlimit { get; set; }
+
+    public bool? Isvisible { get; set; }
+
+    public bool? Isexternalorganiser { get; set; }
 
     public virtual Game? Game { get; set; }
 
