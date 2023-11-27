@@ -15,10 +15,16 @@ public static class MapperExtensionMethods
             Name = eventObject.Name,
             DescriptionForClient = eventObject.DescriptionForClients.TextDescription,
             DescriptionForEmployee = eventObject.DescriptionForEmployees.TechnicalDescription,
-            Price = eventObject.Price,
-            Location= eventObject.Location.Id,
-            Date = eventObject.EventDate,
+            PricePerUser = eventObject.PricePerUser,
+            EventPrice = eventObject.EventPrice,
+            Location = eventObject.Location.Id,
+            Game = eventObject.Game.Id,
+            StartDate = eventObject.StartDate.ToLocalTime(),
+            EndDate = eventObject.EndDate.ToLocalTime(),
             CurrentlySignedPlayers = eventObject.CurrentlySignedPlayers,
+            OwnerEmail = eventObject.OwnerEmail,
+            EventStatus = eventObject.Status.ToString(),
+            EventSettings = eventObject.Settings?.MapToSettingsDTO()
         };
     }
 
@@ -73,9 +79,11 @@ public static class MapperExtensionMethods
         {
             Id = Guid.NewGuid(),
             Name = createEventRequest.Event.Name,
-            Price = createEventRequest.Event.Price,
-            EventDate = createEventRequest.Event.EventDate,
+            PricePerUser = createEventRequest.Event.PricePerUser,
+            StartDate = createEventRequest.Event.StartDate.ToLocalTime(),
+            EndDate = createEventRequest.Event.EndDate.ToLocalTime(),
             CurrentlySignedPlayers = createEventRequest.Event.CurrentlySignedPlayers,
+            Settings = createEventRequest.EventSettings?.MapToEventSettings(),
             DescriptionForClients = new EventDescriptionForClient
             {
                 TextDescription = createEventRequest.Event.ClientDescription
@@ -95,31 +103,46 @@ public static class MapperExtensionMethods
         };
     }
 
-    public static Event MapToEvent(this UpdateEventRequest updateEventRequest)
+    public static Event MapToEvent(this UpdateEventRequest updateEventRequest, Event eventObject)
     {
-        return new Event
+        eventObject.Name = updateEventRequest.Event.Name ?? eventObject.Name;
+        eventObject.DescriptionForEmployees.TextDescription = updateEventRequest.Event.EmployeeDescription ?? eventObject.DescriptionForEmployees.TextDescription;
+        eventObject.DescriptionForClients.TextDescription = updateEventRequest.Event.ClientDescription ?? eventObject.DescriptionForClients.TextDescription;
+        eventObject.StartDate = updateEventRequest.Event.StartDate?.ToLocalTime() ?? eventObject.StartDate;
+        eventObject.EndDate = updateEventRequest.Event.EndDate?.ToLocalTime() ?? eventObject.EndDate;
+        eventObject.CurrentlySignedPlayers = updateEventRequest.Event.CurrentlySignedPlayers ?? eventObject.CurrentlySignedPlayers;
+        eventObject.PricePerUser = updateEventRequest.Event.PricePerUser ?? eventObject.PricePerUser;
+        eventObject.Status = (Domain.Enums.EventStatus?)Enum.Parse(typeof(Domain.Enums.EventStatus), updateEventRequest.Event.EventStatus) ?? eventObject.Status;
+        
+        return eventObject;
+    }
+
+    public static EventSettings MapToEventSettings(this UpdateEventSettingsRequest updateEventSettingsRequest, EventSettings settings)
+    {
+        settings.MaxPlayerLimit = updateEventSettingsRequest.EventSettings.MaxPlayerLimit ?? settings.MaxPlayerLimit;
+        settings.IsVisible = updateEventSettingsRequest.EventSettings.IsVisible ?? settings.IsVisible;
+        settings.IsExternalOrganiser = updateEventSettingsRequest.EventSettings.IsExternalOrganiser ?? settings.IsExternalOrganiser;
+
+        return settings;
+    }
+
+    public static EventSettingsDTO MapToSettingsDTO(this EventSettings settings)
+    {
+        return new EventSettingsDTO
         {
-            Name = updateEventRequest.Event.Name,
-            DescriptionForClients = new EventDescriptionForClient
-            {
-                TextDescription = updateEventRequest.Event.ClientDescription
-            },
-            DescriptionForEmployees = new EventDescriptionForEmployee
-            {
-                TechnicalDescription = updateEventRequest.Event.EmployeeDescription
-            },
-            EventDate = updateEventRequest.Event.EventDate,
-            CurrentlySignedPlayers = updateEventRequest.Event.CurrentlySignedPlayers
+            MaxPlayerLimit = settings.MaxPlayerLimit,
+            IsExternalOrganiser = settings.IsExternalOrganiser,
+            IsVisible = settings.IsVisible,
         };
     }
 
-    public static EventSettings MapToEventSettings(this UpdateEventSettingsRequest updateEventSettingsRequest)
+    public static EventSettings MapToEventSettings(this EventSettingsDTO settingsDTO)
     {
         return new EventSettings
         {
-            MaxPlayerLimit = updateEventSettingsRequest.EventSettings.MaxPlayerLimit,
-            IsVisible = updateEventSettingsRequest.EventSettings.IsVisible,
-            IsExternalOrganiser = updateEventSettingsRequest.EventSettings.IsExternalOrganiser
+            MaxPlayerLimit = settingsDTO.MaxPlayerLimit,
+            IsExternalOrganiser = settingsDTO.IsExternalOrganiser,
+            IsVisible = settingsDTO.IsVisible,
         };
     }
 }

@@ -2,11 +2,14 @@
 using larpex_events.contracts.Contracts.Responses;
 using larpex_events.Services.Interface;
 using larpex_events.Services.Mapper;
+using System.Net;
 
 namespace larpex_events.Services.Implementation;
 
 public class EventOrganiserService : IEventsOrganiserService
 {
+    private readonly decimal PricePerHour = 500;
+
     private readonly IEventsRepository _eventsRepository;
     //private readonly IPaymentAdapter _paymentAdapter;
     // private readonly ILocations _locations;
@@ -21,9 +24,17 @@ public class EventOrganiserService : IEventsOrganiserService
     {
         var eventObject = request.MapToEvent();
         eventObject.OwnerEmail = requestOwnerEmail;
-        eventObject.EventDate = eventObject.EventDate?.ToLocalTime();
-        eventObject.EndDate = eventObject.EndDate?.ToLocalTime();
-            
+
+        if (eventObject.StartDate > eventObject.EndDate)
+        {
+            throw new ArgumentException($"Start date must be before end date");
+        }
+
+        var hours = (eventObject.EndDate - eventObject.StartDate).TotalHours;
+        eventObject.EventPrice = this.PricePerHour * (decimal)hours;
+
+        eventObject.Status = Domain.Enums.EventStatus.Created;
+
         _eventsRepository.Add(eventObject);
 
         return eventObject.MapToCreateEventResponse();
@@ -73,8 +84,16 @@ public class EventOrganiserService : IEventsOrganiserService
             throw new Exception($"Person with email: {requestOwnerEmail} is not authorized to this Event");
         }
 
-        eventObject = request.MapToEvent();
+        eventObject = request.MapToEvent(eventObject);
         eventObject.OwnerEmail = requestOwnerEmail;
+
+        if (eventObject.StartDate > eventObject.EndDate)
+        {
+            throw new ArgumentException($"Start date must be before end date");
+        }
+
+        var hours = (eventObject.EndDate - eventObject.StartDate).TotalHours;
+        eventObject.EventPrice = this.PricePerHour * (decimal)hours;
 
         _eventsRepository.Update(eventObject);
 
@@ -91,7 +110,7 @@ public class EventOrganiserService : IEventsOrganiserService
             throw new Exception($"Person with email: {requestOwnerEmail} is not authorized to this Event");
         }
 
-        eventObject.Settings = request.MapToEventSettings();
+        eventObject.Settings = request.MapToEventSettings(eventObject.Settings);
 
         _eventsRepository.Update(eventObject);
 
