@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-events.contracts", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "external-payments", "external-payments\external-payments.csproj", "{2060D85D-C473-46FF-A8A3-541D1A2C05C3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-db", "larpex-db\larpex-db.csproj", "{996D0644-EF5B-446D-945F-AC39C8C3F5FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{2060D85D-C473-46FF-A8A3-541D1A2C05C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2060D85D-C473-46FF-A8A3-541D1A2C05C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2060D85D-C473-46FF-A8A3-541D1A2C05C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{996D0644-EF5B-446D-945F-AC39C8C3F5FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{996D0644-EF5B-446D-945F-AC39C8C3F5FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{996D0644-EF5B-446D-945F-AC39C8C3F5FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{996D0644-EF5B-446D-945F-AC39C8C3F5FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
