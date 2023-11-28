@@ -39,10 +39,7 @@ public class PaymentRepository : IPaymentRepository
         paymentToUpdate.Paymenttype = payment.Method.ToString() ?? paymentToUpdate.Paymenttype;
 
         _context.Update(paymentToUpdate);
-
         _context.SaveChanges();
-
-        return;
     }
 
     public void SetPaymentStatus(Guid paymentId, PaymentStatus status)
@@ -52,10 +49,7 @@ public class PaymentRepository : IPaymentRepository
         paymentToUpdate!.Paymentstate = status.ToString();
 
         _context.Update(paymentToUpdate);
-
         _context.SaveChanges();
-
-        return;
     }
 
     public PaymentStatus GetPaymentStatus(Guid paymentId)
