@@ -61,7 +61,7 @@ public class PaymentsAdapterService : IPaymentsAdapterService
          _paymentRepository.Update(payment);
 
 
-        var redirectUrl = $"https://localhost:5173/payment-finalization/{paymentId}";
+        var redirectUrl = $"http://localhost:5173/payment-finalization/{paymentId}";
         var apiUrl = $"https://larpex-api-gateway.azurewebsites.net/payments/confirm/{paymentId}";
         // var apiUrl = $"https://localhost:44347/payments/confirm/{paymentId}";
 
