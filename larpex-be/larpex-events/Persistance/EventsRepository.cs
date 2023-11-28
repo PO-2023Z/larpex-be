@@ -25,8 +25,12 @@ public class EventsRepository : IEventsRepository
 
     public void SetPaymentStatus(Guid eventId, bool paid)
     {
-        return;
-        throw new NotImplementedException();
+        var eventToUpdate = _larpexContext.Events.FirstOrDefault(e => e.Eventid == eventId);
+        if (eventToUpdate == null) return;
+        eventToUpdate.Paidfor = true;
+
+        _larpexContext.Update(eventToUpdate);
+        _larpexContext.SaveChanges();
     }
 
     public void Add(Event eventObject)
