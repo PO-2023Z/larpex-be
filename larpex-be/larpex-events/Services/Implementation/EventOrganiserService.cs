@@ -29,6 +29,26 @@ public class EventOrganiserService : IEventsOrganiserService
         {
             throw new ArgumentException($"Start date must be before end date");
         }
+        
+        if(eventObject.EventPrice < 0)
+        {
+            throw new ArgumentException($"Price must be positive");
+        }
+        
+        if(eventObject.PricePerUser < 0)
+        {
+            throw new ArgumentException($"Price per user must be positive");
+        }
+
+        if (string.IsNullOrWhiteSpace(eventObject.Name))
+        {
+            throw new ArgumentException($"Name must be provided");
+        }
+        
+        if (eventObject.StartDate < DateTime.Now)
+        {
+            throw new ArgumentException($"Start date must be in the future");
+        }
 
         var hours = (eventObject.EndDate - eventObject.StartDate).TotalHours;
         eventObject.EventPrice = this.PricePerHour * (decimal)hours;
@@ -91,6 +111,27 @@ public class EventOrganiserService : IEventsOrganiserService
         {
             throw new ArgumentException($"Start date must be before end date");
         }
+        
+        if (eventObject.StartDate < DateTime.Now)
+        {
+            throw new ArgumentException($"Start date must be in the future");
+        }
+          
+        if(eventObject.EventPrice < 0)
+        {
+            throw new ArgumentException($"Price must be positive");
+        }
+        
+        if(eventObject.PricePerUser < 0)
+        {
+            throw new ArgumentException($"Price per user must be positive");
+        }
+
+        if (string.IsNullOrWhiteSpace(eventObject.Name))
+        {
+            throw new ArgumentException($"Name must be provided");
+        }
+
 
         var hours = (eventObject.EndDate - eventObject.StartDate).TotalHours;
         eventObject.EventPrice = this.PricePerHour * (decimal)hours;
