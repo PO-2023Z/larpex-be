@@ -6,6 +6,7 @@ using larpex_payment_adapter.Persistence;
 using larpex_payment_adapter.Services.Implementation;
 using larpex_payment_adapter.Services.Interface;
 using larpex_events.Services.Implementation;
+using larpex_games.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -55,7 +56,8 @@ builder.Services.AddScoped<IEventsEmployeeService, EventEmployeeService>();
 builder.Services.AddScoped<IEventsOrganiserService, EventOrganiserService>();
 builder.Services.AddScoped<ICreatorGameService, CreatorGameService>();
 builder.Services.AddScoped<IReviewerGameService, ReviewerGameService>();
-//builder.Services.AddScoped<IGamesRepository, GamesRepository>();
+builder.Services.AddScoped<IGamesRepository, GamesRepository>();
+
 builder.Services.AddScoped(sp => new HttpClient
     { BaseAddress = new Uri("https://larpex-external-payments.azurewebsites.net/api/") });
 

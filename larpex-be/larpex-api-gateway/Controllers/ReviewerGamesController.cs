@@ -22,25 +22,25 @@ public class ReviewerGamesController : ControllerBase
         _gamesService = gamesService;
     }
 
-    [HttpGet]
+    [HttpGet("get-suggestions")]
     public async Task<BrowseGamesSuggestionResponse> GetSuggestions(BrowseGamesSuggestionsRequest request)
     {
         return _gamesService.GetSuggestions(request);
     }
 
-    [HttpGet]
+    [HttpGet("get-suggestion-details")]
     public async Task<GetGameSuggestionDetailsResponse> GetSuggestionDetails(GetGameSuggestionDetailsRequest request)
     {
         return _gamesService.GetSuggestionDetails(request);
     }
 
-    [HttpPost]
+    [HttpPost("give-verdict")]
     public async Task GiveVerdict(GiveVerdictRequest request)
     {
         _gamesService.GiveVerdict(request);
     }
 
-    [HttpPost]
+    [HttpPost("add-correction")]
     public async Task AddCorrection(AddCorrectionRequest request)
     {
         _gamesService.AddCorrection(request);
