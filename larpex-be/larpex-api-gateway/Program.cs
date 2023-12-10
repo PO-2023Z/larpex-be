@@ -55,6 +55,7 @@ builder.Services.AddScoped<IEventsEmployeeService, EventEmployeeService>();
 builder.Services.AddScoped<IEventsOrganiserService, EventOrganiserService>();
 builder.Services.AddScoped<ICreatorGameService, CreatorGameService>();
 builder.Services.AddScoped<IReviewerGameService, ReviewerGameService>();
+//builder.Services.AddScoped<IGamesRepository, GamesRepository>();
 builder.Services.AddScoped(sp => new HttpClient
     { BaseAddress = new Uri("https://larpex-external-payments.azurewebsites.net/api/") });
 
