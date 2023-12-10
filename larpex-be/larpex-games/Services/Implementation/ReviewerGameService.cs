@@ -40,24 +40,28 @@ public class ReviewerGameService : IReviewerGameService
         var games = _gamesRepository.GetAll()
             .Where(x => x.State == Domain.Enums.CreationState.AwaitingAcceptation);
 
-        if (request.GameName is not null)
+        if (!string.IsNullOrEmpty(request.GameName))
         {
             games = games.Where(x => x.GameName.Contains(request.GameName));
         }
 
         if (request.SortExpression is not null)
         {
-            //games = games.
+            switch (request.SortExpression)
+            {
+                case larpex_contracts.contracts.Contracts.DataTransferObjects.Game.Enums.SortExpression.GameName:
+                    games = games.OrderBy(x => x.GameName);
+                    break;
+
+                case larpex_contracts.contracts.Contracts.DataTransferObjects.Game.Enums.SortExpression.CreationDate:
+                    games = games.OrderBy(x => x.DateOfCreation);
+                    break;
+            }
         }
 
-        var totalPages = 1;
-
-        if (request.PageNumber is not null && request.PageSize is not null)
-        {
-            totalPages = games.Count() / (int)request.PageSize + ((games.Count() % (int)request.PageSize) > 0 ? 1 : 0);
-            games = games.Skip(((int)request.PageNumber - 1) * (int)request.PageSize).Take((int)request.PageSize);
-            // upewnic sie czy to smiga jak nalezy
-        }
+        var totalPages = games.Count() / request.PageSize + ((games.Count() % request.PageSize) > 0 ? 1 : 0);
+        games = games.Skip((request.PageNumber - 1) * request.PageSize).Take(request.PageSize);
+        // upewnic sie czy to smiga jak nalezy
 
         return games.ToList().MapToBrowseGamesSuggestionResponse(totalPages);
     }
