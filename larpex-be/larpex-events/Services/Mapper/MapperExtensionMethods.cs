@@ -1,5 +1,6 @@
-﻿using larpex_events.contracts.Contracts.DataTransferObjects;
+﻿using larpex_events.contracts.Contracts.DataTransferObjects.Event;
 using larpex_events.contracts.Contracts.Requests;
+using larpex_events.contracts.Contracts.Requests.Event;
 using larpex_events.contracts.Contracts.Responses;
 using larpex_events.Domain;
 

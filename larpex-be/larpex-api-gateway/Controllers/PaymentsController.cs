@@ -1,5 +1,5 @@
 ﻿using larpex_auth;
-using larpex_events.contracts.Contracts.Requests;
+using larpex_events.contracts.Contracts.Requests.Payment;
 using larpex_events.contracts.Contracts.Responses;
 using larpex_payment_adapter.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
