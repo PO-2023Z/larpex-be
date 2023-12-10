@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using larpex_db.Models;
+﻿using larpex_db.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace larpex_db;
@@ -36,6 +34,10 @@ public partial class LarpexdbContext : DbContext
 
     public virtual DbSet<Userscredential> Userscredentials { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseNpgsql("Host=34.88.138.104:5432;Database=larpexdb;Username=larpexuser;Password=larpex;");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresExtension("uuid-ossp");
@@ -52,6 +54,7 @@ public partial class LarpexdbContext : DbContext
             entity.Property(e => e.Itemid).HasColumnName("itemid");
             entity.Property(e => e.Itemstate)
                 .HasMaxLength(50)
+                .HasDefaultValueSql("'Lost'::character varying")
                 .HasColumnName("itemstate");
             entity.Property(e => e.Playerid).HasColumnName("playerid");
 
@@ -90,18 +93,26 @@ public partial class LarpexdbContext : DbContext
                 .HasColumnName("eventprice");
             entity.Property(e => e.Eventstate)
                 .HasMaxLength(50)
+                .HasDefaultValueSql("'Created'::character varying")
                 .HasColumnName("eventstate");
             entity.Property(e => e.Gameid).HasColumnName("gameid");
             entity.Property(e => e.Icon)
                 .HasMaxLength(50)
                 .HasColumnName("icon");
-            entity.Property(e => e.Isexternalorganiser).HasColumnName("isexternalorganiser");
-            entity.Property(e => e.Isvisible).HasColumnName("isvisible");
+            entity.Property(e => e.Isexternalorganiser)
+                .HasDefaultValueSql("false")
+                .HasColumnName("isexternalorganiser");
+            entity.Property(e => e.Isvisible)
+                .HasDefaultValueSql("true")
+                .HasColumnName("isvisible");
             entity.Property(e => e.Maxplayerlimit).HasColumnName("maxplayerlimit");
             entity.Property(e => e.Owneremail)
                 .HasMaxLength(50)
+                .HasDefaultValueSql("'NoOwner@notExist.xyz'::character varying")
                 .HasColumnName("owneremail");
-            entity.Property(e => e.Paidfor).HasColumnName("paidfor");
+            entity.Property(e => e.Paidfor)
+                .HasDefaultValueSql("false")
+                .HasColumnName("paidfor");
             entity.Property(e => e.Placeid).HasColumnName("placeid");
             entity.Property(e => e.Priceperuser)
                 .HasColumnType("money")
@@ -128,20 +139,33 @@ public partial class LarpexdbContext : DbContext
 
             entity.ToTable("games");
 
+            entity.HasIndex(e => e.Gamename, "games_gamename_key").IsUnique();
+
             entity.Property(e => e.Gameid)
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("gameid");
+            entity.Property(e => e.Amendment)
+                .HasMaxLength(2000)
+                .HasColumnName("amendment");
+            entity.Property(e => e.Creationstate)
+                .HasMaxLength(50)
+                .HasColumnName("creationstate");
             entity.Property(e => e.Description)
                 .HasMaxLength(1000)
                 .HasColumnName("description");
             entity.Property(e => e.Difficulty).HasColumnName("difficulty");
+            entity.Property(e => e.Gameauthoremail)
+                .HasMaxLength(150)
+                .HasColumnName("gameauthoremail");
             entity.Property(e => e.Gamename)
                 .HasMaxLength(50)
                 .HasColumnName("gamename");
             entity.Property(e => e.Map)
                 .HasMaxLength(1000)
                 .HasColumnName("map");
-            entity.Property(e => e.Maximumplayer).HasColumnName("maximumplayer");
+            entity.Property(e => e.Maximumplayer)
+                .HasDefaultValueSql("100")
+                .HasColumnName("maximumplayer");
             entity.Property(e => e.Scenario)
                 .HasMaxLength(1000)
                 .HasColumnName("scenario");
@@ -181,6 +205,7 @@ public partial class LarpexdbContext : DbContext
             entity.Property(e => e.Gameid).HasColumnName("gameid");
             entity.Property(e => e.Itemdescription)
                 .HasMaxLength(250)
+                .HasDefaultValueSql("'No description'::character varying")
                 .HasColumnName("itemdescription");
             entity.Property(e => e.Itemicon)
                 .HasMaxLength(150)
@@ -190,9 +215,11 @@ public partial class LarpexdbContext : DbContext
                 .HasColumnName("itemname");
             entity.Property(e => e.Rarity)
                 .HasMaxLength(50)
+                .HasDefaultValueSql("'Common'::character varying")
                 .HasColumnName("rarity");
             entity.Property(e => e.Type)
                 .HasMaxLength(50)
+                .HasDefaultValueSql("'Potion'::character varying")
                 .HasColumnName("type");
 
             entity.HasOne(d => d.Game).WithMany(p => p.Items)
@@ -222,18 +249,13 @@ public partial class LarpexdbContext : DbContext
             entity.Property(e => e.Paymenttype)
                 .HasMaxLength(50)
                 .HasColumnName("paymenttype");
-            entity.Property(e => e.UserEmail)
+            entity.Property(e => e.Useremail)
                 .HasMaxLength(50)
-                .HasColumnName("userEmail");
+                .HasColumnName("useremail");
 
             entity.HasOne(d => d.Event).WithMany(p => p.Payments)
                 .HasForeignKey(d => d.Eventid)
                 .HasConstraintName("payments_eventid_fkey");
-
-            entity.HasOne(d => d.UserEmailNavigation).WithMany(p => p.Payments)
-                .HasPrincipalKey(p => p.Email)
-                .HasForeignKey(d => d.UserEmail)
-                .HasConstraintName("payments_users_email_fk");
         });
 
         modelBuilder.Entity<Place>(entity =>
@@ -271,7 +293,9 @@ public partial class LarpexdbContext : DbContext
             entity.Property(e => e.Nick)
                 .HasMaxLength(50)
                 .HasColumnName("nick");
-            entity.Property(e => e.Userid).HasColumnName("userid");
+            entity.Property(e => e.Useremail)
+                .HasMaxLength(50)
+                .HasColumnName("useremail");
 
             entity.HasOne(d => d.Event).WithMany(p => p.Players)
                 .HasForeignKey(d => d.Eventid)
@@ -280,10 +304,6 @@ public partial class LarpexdbContext : DbContext
             entity.HasOne(d => d.Gamerole).WithMany(p => p.Players)
                 .HasForeignKey(d => d.Gameroleid)
                 .HasConstraintName("players_gameroleid_fkey");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Players)
-                .HasForeignKey(d => d.Userid)
-                .HasConstraintName("players_userid_fkey");
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -292,7 +312,7 @@ public partial class LarpexdbContext : DbContext
 
             entity.ToTable("users");
 
-            entity.HasIndex(e => e.Email, "users_pk").IsUnique();
+            entity.HasIndex(e => e.Email, "users_email_key").IsUnique();
 
             entity.Property(e => e.Userid)
                 .HasDefaultValueSql("gen_random_uuid()")
@@ -320,14 +340,14 @@ public partial class LarpexdbContext : DbContext
             entity.Property(e => e.Password)
                 .HasMaxLength(50)
                 .HasColumnName("password");
-            entity.Property(e => e.UserEmail)
+            entity.Property(e => e.Useremail)
                 .HasMaxLength(50)
-                .HasColumnName("userEmail");
+                .HasColumnName("useremail");
 
-            entity.HasOne(d => d.UserEmailNavigation).WithMany(p => p.Userscredentials)
+            entity.HasOne(d => d.UseremailNavigation).WithMany(p => p.Userscredentials)
                 .HasPrincipalKey(p => p.Email)
-                .HasForeignKey(d => d.UserEmail)
-                .HasConstraintName("userscredential_users_email_fk");
+                .HasForeignKey(d => d.Useremail)
+                .HasConstraintName("userscredential_useremail_fkey");
         });
 
         OnModelCreatingPartial(modelBuilder);
