@@ -10,6 +10,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-locations", "larpex-locations\larpex-locations.csproj", "{41E9FD35-3171-4B4C-8AAB-AA8222D7F7C5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-games", "larpex-games\larpex-games.csproj", "{DFDB183E-4605-4250-9DA8-19F911DB92AB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{818987E7-02BF-4DAA-91BB-E622FEAFCE21} = {818987E7-02BF-4DAA-91BB-E622FEAFCE21}
+		{996D0644-EF5B-446D-945F-AC39C8C3F5FF} = {996D0644-EF5B-446D-945F-AC39C8C3F5FF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "larpex-play", "larpex-play\larpex-play.csproj", "{3FBA6A9F-E95F-43A7-A72F-395C54C2501B}"
 EndProject

@@ -18,6 +18,7 @@
       <ProjectReference Include="..\larpex-contracts\larpex-contracts.csproj" />
       <ProjectReference Include="..\larpex-events\larpex-events.csproj" />
       <ProjectReference Include="..\larpex-auth\larpex-auth.csproj" />
+      <ProjectReference Include="..\larpex-games\larpex-games.csproj" />
       <ProjectReference Include="..\larpex-payment-adapter\larpex-payment-adapter.csproj" />
         
     </ItemGroup>

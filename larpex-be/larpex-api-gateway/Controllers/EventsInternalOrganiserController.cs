@@ -1,5 +1,6 @@
 ﻿using larpex_auth;
 using larpex_events.contracts.Contracts.Requests;
+using larpex_events.contracts.Contracts.Requests.Event;
 using larpex_events.contracts.Contracts.Responses;
 using larpex_events.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
