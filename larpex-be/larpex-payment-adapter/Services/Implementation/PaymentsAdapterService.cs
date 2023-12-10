@@ -1,5 +1,5 @@
 using System.Net.Http.Json;
-using larpex_events.contracts.Contracts.Requests;
+using larpex_events.contracts.Contracts.Requests.Payment;
 using larpex_events.contracts.Contracts.Responses;
 using larpex_events.Services.Interface;
 using larpex_payment_adapter.Domain;

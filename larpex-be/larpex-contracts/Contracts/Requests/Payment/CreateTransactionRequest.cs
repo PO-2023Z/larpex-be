@@ -1,4 +1,4 @@
-﻿namespace larpex_events.contracts.Contracts.Requests;
+﻿namespace larpex_events.contracts.Contracts.Requests.Payment;
 
 public class CreateTransactionRequest
 {

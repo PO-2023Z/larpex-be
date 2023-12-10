@@ -1,4 +1,5 @@
 ﻿using larpex_events.contracts.Contracts.Requests;
+using larpex_events.contracts.Contracts.Requests.Event;
 using larpex_events.contracts.Contracts.Responses;
 using larpex_events.Services.Interface;
 using larpex_events.Services.Mapper;
