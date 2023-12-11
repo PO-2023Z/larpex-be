@@ -1,4 +1,5 @@
-﻿using larpex_contracts.contracts.Contracts.Requests.Game;
+﻿using larpex_contracts.contracts.Contracts.DataTransferObjects.Game.Enums;
+using larpex_contracts.contracts.Contracts.Requests.Game;
 using larpex_contracts.contracts.Contracts.Responses.Game;
 using larpex_events.contracts.Contracts.Requests.Game;
 using larpex_games.contracts.Contracts.Requests.Game;
@@ -21,8 +22,7 @@ public class ReviewerGameService : IReviewerGameService
     {
         var game = _gamesRepository.Get(request.GameId)
             ?? throw new Exception($"Game with ID: {request.GameId} does not exist");
-
-        game.GameId = request.GameId;
+        
         game.CorrectionNotes = request.Message ?? string.Empty;
         game.State = CreationState.UnderDevelopment;
 
@@ -75,12 +75,10 @@ public class ReviewerGameService : IReviewerGameService
         }
         
         var itemFrom = (pageNumber - 1) * pageSize + 1;
-        
 
         var totalPages = games.Count() / pageSize  + ((games.Count() % pageSize) > 0 ? 1 : 0);
         games = games.Skip((pageNumber - 1) * pageSize).Take(pageSize);
         var itemTo = itemFrom + games.Count() -1;
-        // upewnic sie czy to smiga jak nalezy
 
         return games.ToList().MapToBrowseGamesSuggestionResponse(totalPages, totalItems, itemFrom, itemTo);
     }
@@ -89,9 +87,8 @@ public class ReviewerGameService : IReviewerGameService
     {
         var game = _gamesRepository.Get(request.GameId)
             ?? throw new Exception($"Game with ID: {request.GameId} does not exist");
-
-
-        game.State = request.Verdict == larpex_contracts.contracts.Contracts.DataTransferObjects.Game.Enums.Verdict.Accepted
+        
+        game.State = request.Verdict == Verdict.Accepted
             ? Domain.Enums.CreationState.Accepted 
             : Domain.Enums.CreationState.Rejected;
 
