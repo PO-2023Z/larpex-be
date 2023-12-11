@@ -25,6 +25,10 @@ public partial class Game
 
     public string? Amendment { get; set; }
 
+    public DateTime? Dateofcreation { get; set; }
+
+    public string? Correctionnotes { get; set; }
+
     public virtual ICollection<Event> Events { get; set; } = new List<Event>();
 
     public virtual ICollection<Gamerole> Gameroles { get; set; } = new List<Gamerole>();

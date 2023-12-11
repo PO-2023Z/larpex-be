@@ -1,4 +1,5 @@
 ﻿using larpex_contracts.contracts.Contracts.Requests.Game;
+using larpex_games.Domain.Enums;
 using larpex_events.contracts.Contracts.DataTransferObjects;
 using larpex_events.contracts.Contracts.DataTransferObjects.Game;
 using larpex_events.contracts.Contracts.Requests.Game;
@@ -98,7 +99,13 @@ public class CreatorGameService : ICreatorGameService
             throw new Exception($"Person with email: {email} is not authorized to this Game");
         }
 
-        game.State = Domain.Enums.CreationState.AwaitingAcceptation;
+        if (game.State != CreationState.UnderDevelopment)
+        {
+            throw new Exception($"Game with ID: {request.GameId} is not under development");
+        }
+
+
+        game.State = CreationState.AwaitingAcceptation;
 
         _gamesRepository.Update(game);
     }
