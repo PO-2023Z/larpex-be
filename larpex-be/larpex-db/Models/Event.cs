@@ -7,9 +7,9 @@ public partial class Event
 {
     public Guid Eventid { get; set; }
 
-    public string? Eventname { get; set; }
+    public string Eventname { get; set; } = null!;
 
-    public DateTime? Startdate { get; set; }
+    public DateTime Startdate { get; set; }
 
     public decimal? Priceperuser { get; set; }
 
@@ -21,9 +21,9 @@ public partial class Event
 
     public string? Icon { get; set; }
 
-    public string? Eventstate { get; set; }
+    public string Eventstate { get; set; } = null!;
 
-    public DateTime? Enddate { get; set; }
+    public DateTime Enddate { get; set; }
 
     public bool? Paidfor { get; set; }
 
@@ -33,13 +33,13 @@ public partial class Event
 
     public decimal? Eventprice { get; set; }
 
-    public string? Owneremail { get; set; }
-
-    public int? Maxplayerlimit { get; set; }
+    public string Owneremail { get; set; } = null!;
 
     public bool? Isvisible { get; set; }
 
     public bool? Isexternalorganiser { get; set; }
+
+    public int? Maxplayerlimit { get; set; }
 
     public virtual Game? Game { get; set; }
 

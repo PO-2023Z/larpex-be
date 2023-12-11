@@ -7,13 +7,13 @@ public partial class Item
 {
     public Guid Itemid { get; set; }
 
-    public string? Itemname { get; set; }
+    public string Itemname { get; set; } = null!;
 
     public string? Itemdescription { get; set; }
 
-    public string? Rarity { get; set; }
+    public string Rarity { get; set; } = null!;
 
-    public string? Type { get; set; }
+    public string Type { get; set; } = null!;
 
     public string? Itemicon { get; set; }
 
