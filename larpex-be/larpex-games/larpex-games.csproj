@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\larpex-contracts\larpex-contracts.csproj" />
+      <ProjectReference Include="..\larpex-db\larpex-db.csproj" />
     </ItemGroup>
 
 </Project>

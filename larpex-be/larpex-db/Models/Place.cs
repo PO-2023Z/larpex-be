@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using larpex_db.Models;
 
 namespace larpex_db.Models;
 
@@ -8,7 +7,7 @@ public partial class Place
 {
     public Guid Placeid { get; set; }
 
-    public string? Address { get; set; }
+    public string Address { get; set; } = null!;
 
     public string? Details { get; set; }
 

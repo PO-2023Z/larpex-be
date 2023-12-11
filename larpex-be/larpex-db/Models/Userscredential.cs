@@ -9,7 +9,7 @@ public partial class Userscredential
 
     public string? Password { get; set; }
 
-    public string? UserEmail { get; set; }
+    public string? Useremail { get; set; }
 
-    public virtual User? UserEmailNavigation { get; set; }
+    public virtual User? UseremailNavigation { get; set; }
 }

@@ -7,7 +7,7 @@ public partial class Gamerole
 {
     public Guid Gameroleid { get; set; }
 
-    public string? Rolename { get; set; }
+    public string Rolename { get; set; } = null!;
 
     public string? Roledescription { get; set; }
 

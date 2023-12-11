@@ -32,7 +32,7 @@ public class PaymentRepository : IPaymentRepository
     {
         var paymentToUpdate = _context.Payments.FirstOrDefault(p => p.Paymentid == payment.Id);
 
-        paymentToUpdate!.UserEmail = payment.UserEmail ?? paymentToUpdate.UserEmail;
+        paymentToUpdate!.Useremail = payment.UserEmail ?? paymentToUpdate.Useremail;
         paymentToUpdate.Paymentamount = payment.Amount ?? paymentToUpdate.Paymentamount;
         paymentToUpdate.Paymentdate = payment.Date ?? paymentToUpdate.Paymentdate;
         paymentToUpdate.Paymentstate = payment.Status.ToString() ?? paymentToUpdate.Paymentstate;
