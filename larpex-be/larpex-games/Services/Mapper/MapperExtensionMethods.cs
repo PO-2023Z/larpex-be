@@ -31,14 +31,14 @@ public static class MapperExtensionMethods
     }
 
     //public static BrowseGamesSuggestionResponse MapToBrowseGamesSuggestionResponse(this List<Game> games, int itemsFrom, int itemsTo, int totalPages)
-    public static BrowseGamesSuggestionResponse MapToBrowseGamesSuggestionResponse(this List<Game> games, int totalPages)
+    public static BrowseGamesSuggestionResponse MapToBrowseGamesSuggestionResponse(this List<Game> games, int totalPages, int totalItemsCount, int itemsFrom, int itemsTo)
     {
         return new BrowseGamesSuggestionResponse
         {
             Items = games.Select(x => x.MapToGameSuggestionDTO()).ToList(),
-            //TotalItemsCount = games.Count(),
-            //ItemFrom = itemsFrom,
-            //ItemTo = itemsTo,
+            TotalItemsCount = totalItemsCount,
+            ItemFrom = itemsFrom,
+            ItemTo = itemsTo,
             TotalPages = totalPages
         };
     }

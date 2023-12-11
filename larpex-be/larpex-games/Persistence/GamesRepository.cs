@@ -63,7 +63,8 @@ public class GamesRepository : IGamesRepository
             Scenario = gameDto.Scenario ?? string.Empty,
             CorrectionNotes = gameDto.Amendment ?? string.Empty,
             VerdictNotes = "", //TODO: To check - This property does not exist in the DTO, so it's set to an empty string
-            State = (CreationState)Enum.Parse(typeof(CreationState), gameDto.Creationstate),
+            // State = (CreationState)Enum.Parse(typeof(CreationState), gameDto.Creationstate),
+            State = CreationState.AwaitingAcceptation,
             DateOfCreation = DateTime.Now //TODO: To check - This property does not exist in the DTO, so it's set to the current date and time
         };
     }

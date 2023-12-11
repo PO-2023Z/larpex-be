@@ -23,13 +23,15 @@ public class ReviewerGamesController : ControllerBase
     }
 
     [HttpGet("get-suggestions")]
-    public async Task<BrowseGamesSuggestionResponse> GetSuggestions(BrowseGamesSuggestionsRequest request)
+    public async Task<BrowseGamesSuggestionResponse> GetSuggestions(
+        [FromQuery] BrowseGamesSuggestionsRequest request)
     {
         return _gamesService.GetSuggestions(request);
     }
 
     [HttpGet("get-suggestion-details")]
-    public async Task<GetGameSuggestionDetailsResponse> GetSuggestionDetails(GetGameSuggestionDetailsRequest request)
+    public async Task<GetGameSuggestionDetailsResponse> GetSuggestionDetails(
+        [FromQuery] GetGameSuggestionDetailsRequest request)
     {
         return _gamesService.GetSuggestionDetails(request);
     }
