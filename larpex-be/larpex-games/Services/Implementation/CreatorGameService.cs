@@ -1,4 +1,7 @@
 ﻿using larpex_contracts.contracts.Contracts.Requests.Game;
+using larpex_events.contracts.Contracts.DataTransferObjects.Game;
+using larpex_events.contracts.Contracts.Requests.Game;
+using larpex_events.contracts.Contracts.Responses.Game;
 using larpex_games.Services.Interface;
 
 
@@ -10,6 +13,26 @@ public class CreatorGameService : ICreatorGameService
     public CreatorGameService(IGamesRepository gamesRepository)
     {
         _gamesRepository = gamesRepository;
+    }
+
+    public List<GameDto> GetGames(string creatorEmail)
+    {
+        throw new NotImplementedException();
+    }
+
+    public GetCreatorGameResponse GetGame(Guid gameId, string creatorEmail)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void CreateGame(CreateGameRequest request, string creatorEmail)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ModifyGame(GameDto game, string creatorEmail)
+    {
+        throw new NotImplementedException();
     }
 
     public void SendGameSuggestion(SendGameSuggestionRequest request, string email)
