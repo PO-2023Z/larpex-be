@@ -12,7 +12,7 @@ namespace larpex_api_gateway.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public classCreatorGamesController : ControllerBase
+public class CreatorGamesController : ControllerBase
 {
     private readonly ICreatorGameService _gamesService;
 
@@ -23,31 +23,38 @@ public classCreatorGamesController : ControllerBase
     
     
     [HttpGet()]
-    public async Task<GetCreatorGamesResponse> GetGames()
+    public async Task<IActionResult> GetGames()
     {
         string token = HttpContext.Request.Headers["Authorization"];
         if (string.IsNullOrWhiteSpace(token) || !token.StartsWith("Bearer "))
         {
-            throw new UnauthorizedAccessException("Invalid token");
+            return Unauthorized();
         }
         var email = TokenGenerator.GetEmail(token.Substring("Bearer ".Length));
 
         
-        return _gamesService.GetGames(email);
+        return Ok(_gamesService.GetGames(email));
     }
     
     [HttpGet("{gameId}")]
-    public async Task<GetCreatorGameResponse> GetGame(Guid gameId)
+    public async Task<IActionResult> GetGame(Guid gameId)
     {
         string token = HttpContext.Request.Headers["Authorization"];
+
         if (string.IsNullOrWhiteSpace(token) || !token.StartsWith("Bearer "))
         {
-            throw new UnauthorizedAccessException("Invalid token");
+            return Unauthorized();
         }
         var email = TokenGenerator.GetEmail(token.Substring("Bearer ".Length));
 
+        var game = _gamesService.GetGame(gameId, email);
+
+        if (game == null)
+        {
+            return NotFound();
+        }
         
-        return _gamesService.GetGame(gameId, email);
+        return Ok(game);
     }
     
     [HttpPost("create/")]

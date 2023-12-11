@@ -4,5 +4,5 @@ namespace larpex_events.contracts.Contracts.Requests.Game;
 
 public class CreateGameRequest
 {
-    public NewGameDto game { get; set; }
+    public NewGameDto Game { get; set; }
 }

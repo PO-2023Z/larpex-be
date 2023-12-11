@@ -4,5 +4,5 @@ namespace larpex_events.contracts.Contracts.Responses.Game;
 
 public class GetCreatorGamesResponse
 {
-    public List<GameSummaryDto> items { get; set; }
+    public List<GameSummaryDto> Games { get; set; }
 }

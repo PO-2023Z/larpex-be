@@ -8,7 +8,7 @@ namespace larpex_games.Services.Interface;
 public interface ICreatorGameService
 {
     GetCreatorGamesResponse GetGames(string creatorEmail);
-    GetCreatorGameResponse GetGame(Guid gameId, string creatorEmail);
+    GetCreatorGameResponse? GetGame(Guid gameId, string creatorEmail);
     void CreateGame(CreateGameRequest request, string creatorEmail);
     void ModifyGame(UpdateGameDto game, string creatorEmail);
     
