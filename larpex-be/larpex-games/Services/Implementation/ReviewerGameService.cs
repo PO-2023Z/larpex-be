@@ -22,6 +22,9 @@ public class ReviewerGameService : IReviewerGameService
     {
         var game = _gamesRepository.Get(request.GameId)
             ?? throw new Exception($"Game with ID: {request.GameId} does not exist");
+
+        if (game.State != CreationState.AwaitingAcceptation)
+            throw new Exception($"Game with ID: {request.GameId} is not awaiting acceptation");
         
         game.CorrectionNotes = request.Message ?? string.Empty;
         game.State = CreationState.UnderDevelopment;
@@ -40,7 +43,7 @@ public class ReviewerGameService : IReviewerGameService
     public BrowseGamesSuggestionResponse GetSuggestions(BrowseGamesSuggestionsRequest request)
     {
         var games = _gamesRepository.GetAll()
-            .Where(x => x.State == Domain.Enums.CreationState.AwaitingAcceptation);
+            .Where(x => x.State == CreationState.AwaitingAcceptation);
 
         if (!string.IsNullOrEmpty(request.GameName))
         {
@@ -53,11 +56,11 @@ public class ReviewerGameService : IReviewerGameService
         {
             switch (request.SortExpression)
             {
-                case larpex_contracts.contracts.Contracts.DataTransferObjects.Game.Enums.SortExpression.GameName:
+                case SortExpression.GameName:
                     games = games.OrderBy(x => x.GameName);
                     break;
 
-                case larpex_contracts.contracts.Contracts.DataTransferObjects.Game.Enums.SortExpression.CreationDate:
+                case SortExpression.CreationDate:
                     games = games.OrderBy(x => x.DateOfCreation);
                     break;
             }
@@ -87,10 +90,13 @@ public class ReviewerGameService : IReviewerGameService
     {
         var game = _gamesRepository.Get(request.GameId)
             ?? throw new Exception($"Game with ID: {request.GameId} does not exist");
+
+        if (game.State != CreationState.AwaitingAcceptation)
+            throw new Exception($"Game with ID: {request.GameId} is not awaiting acceptation");
         
         game.State = request.Verdict == Verdict.Accepted
-            ? Domain.Enums.CreationState.Accepted 
-            : Domain.Enums.CreationState.Rejected;
+            ? CreationState.Accepted 
+            : CreationState.Rejected;
 
         game.VerdictNotes = request.Explanation ?? string.Empty;
 
