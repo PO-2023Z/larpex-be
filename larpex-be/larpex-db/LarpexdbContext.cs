@@ -147,9 +147,15 @@ public partial class LarpexdbContext : DbContext
             entity.Property(e => e.Amendment)
                 .HasMaxLength(2000)
                 .HasColumnName("amendment");
+            entity.Property(e => e.Correctionnotes)
+                .HasMaxLength(2000)
+                .HasColumnName("correctionnotes");
             entity.Property(e => e.Creationstate)
                 .HasMaxLength(50)
                 .HasColumnName("creationstate");
+            entity.Property(e => e.Dateofcreation)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("dateofcreation");
             entity.Property(e => e.Description)
                 .HasMaxLength(1000)
                 .HasColumnName("description");

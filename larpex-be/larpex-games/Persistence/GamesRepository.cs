@@ -61,11 +61,10 @@ public class GamesRepository : IGamesRepository
             Description = gameDto.Description ?? string.Empty,
             Map = gameDto.Map ?? string.Empty,
             Scenario = gameDto.Scenario ?? string.Empty,
-            CorrectionNotes = gameDto.Amendment ?? string.Empty,
-            VerdictNotes = "", //TODO: To check - This property does not exist in the DTO, so it's set to an empty string
-            // State = (CreationState)Enum.Parse(typeof(CreationState), gameDto.Creationstate),
-            State = CreationState.AwaitingAcceptation,
-            DateOfCreation = DateTime.Now //TODO: To check - This property does not exist in the DTO, so it's set to the current date and time
+            CorrectionNotes = gameDto.Correctionnotes ?? string.Empty,
+            VerdictNotes = gameDto.Amendment ?? string.Empty,
+            State = (CreationState)Enum.Parse(typeof(CreationState), gameDto.Creationstate),
+            DateOfCreation = gameDto.Dateofcreation ?? DateTime.Now
         };
     }
     
@@ -81,8 +80,10 @@ public class GamesRepository : IGamesRepository
             Description = game.Description,
             Map = game.Map,
             Scenario = game.Scenario,
-            Amendment = game.CorrectionNotes,
-            Creationstate = game.State.ToString()
+            Amendment = game.VerdictNotes,
+            Creationstate = game.State.ToString(),
+            Dateofcreation = game.DateOfCreation,
+            Correctionnotes = game.CorrectionNotes
         };
     }
 }
